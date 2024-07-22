@@ -21,7 +21,7 @@ const FormSchema = z.object({
   email: z.string().email(),
 });
 
-const Signin = () => {
+const Signup = () => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -88,12 +88,12 @@ const Signin = () => {
           variant="outline"
           className="font-semibold text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
         >
-          Sign in with Passkey
+          Sign up with Passkey
         </Button>
-        <Link to="/signup">
+        <Link to="/signin">
           <Button variant="link" className="flex gap-1 w-full">
-            Don't have an account?{" "}
-            <span className="text-custom-pink">Sign up</span>
+            Have an account already?{" "}
+            <span className="text-custom-pink">Sign in</span>
           </Button>
         </Link>
       </div>
@@ -101,4 +101,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;

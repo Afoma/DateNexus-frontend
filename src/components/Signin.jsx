@@ -79,7 +79,7 @@ const Signin = () => {
             </Button>
           </form>
         </Form>
-        <div className="flex gap-4 justify-center">
+        <div className="flex gap-2 justify-center">
           <img src={Line} alt="" />
           <span>OR</span>
           <img src={Line} alt="" />

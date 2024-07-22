@@ -2,10 +2,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
-  content: [
-    './index.html',
-    './src/**/*.{js,jsx}',
-  ],
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     container: {
       center: true,
@@ -49,6 +46,17 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "custom-pink": "#F83E67",
+        "custom-red": "#A50946",
+        "custom-text-secondary": "#A3A3A3",
+        whitish: "#F5F5F5",
+      },
+      backgroundImage: {
+        "custom-gradient":
+          "linear-gradient(178deg, #F83E67 -11.64%, #A50946 81.11%)",
+      },
+      fontFamily: {
+        sans: ["Poppins", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -72,4 +80,4 @@ export default {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

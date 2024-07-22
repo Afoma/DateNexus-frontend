@@ -125,7 +125,7 @@ const OnboardingScreen = () => {
               <Button
                 variant="ghost"
                 onClick={handleSkip}
-                className="w-full md:w-auto md:ml-4"
+                className="w-full md:w-auto"
               >
                 Skip
               </Button>

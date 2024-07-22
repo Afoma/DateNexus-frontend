@@ -16,6 +16,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import TopCurve from "./TopCurve";
+import TopCurveWhite from "./TopCurveWhite";
 
 const FormSchema = z.object({
   pin: z.string().min(6, {
@@ -36,9 +37,20 @@ const OtpConfirmation = () => {
   }
 
   return (
-    <div className="h-screen grid grid-rows-[250px_1fr]">
-      <TopCurve />
-      <div className="px-6 flex flex-col gap-12">
+    <div className="h-screen grid grid-rows-[250px_1fr] lg:grid-cols-[550px_1fr]">
+      <div className="hidden lg:grid lg:min-h-screen lg:bg-custom-gradient">
+        <TopCurveWhite />
+        <h3 className=" text-white text-6xl text-center font-semibold">
+          <span className="text-white_transparent text-4xl font-medium">
+            Welcome to
+          </span>{" "}
+          DateNexus
+        </h3>
+      </div>
+      <div className="lg:hidden">
+        <TopCurve />
+      </div>
+      <div className="px-6 flex flex-col gap-12 md:py-[100px] md:px-[170px]">
         <h3 className="font-semibold text-black text-xl w-[254px]">
           Please check your
           <span className="text-custom-pink"> email for a code</span>

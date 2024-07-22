@@ -13,10 +13,10 @@ const OnboardingScreen = () => {
 
   const screens = [
     {
-      title: "Interact And Connect:",
-      subtitle: "Message And Call.",
+      title: "Network with New",
+      subtitle: "People in Your Field.",
       description:
-        "Communicate Easily and Build Stronger Connections Through Conversations",
+        "Expand Your Professional Circle and Discover New Opportunities",
       image: Boarding1,
     },
     {
@@ -27,10 +27,10 @@ const OnboardingScreen = () => {
       image: Boarding2,
     },
     {
-      title: "Network with New",
-      subtitle: "People in Your Field.",
+      title: "Interact And Connect",
+      subtitle: "Message And Call.",
       description:
-        "Expand Your Professional Circle and Discover New Opportunities",
+        "Communicate Easily and Build Stronger Connections Through Conversations",
       image: Boarding3,
     },
   ];
@@ -51,70 +51,87 @@ const OnboardingScreen = () => {
 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentScreen}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -50 }}
-          transition={{ duration: 0.3 }}
-          className="flex-1 relative overflow-hidden"
-        >
-          <div className="relative">
-            <img className="absolute mt-[30px]" src={Placeholder} alt="" />
-            <img
-              src={screens[currentScreen].image}
-              alt="Onboarding"
-              className="w-full h-full object-cover relative"
-            />
-          </div>
+      <div className="flex flex-col justify-between h-full md:flex-row">
+        <div className="md:w-1/2 md:h-full relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentScreen}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.3 }}
+              className="h-full"
+            >
+              <div className="relative h-full">
+                <img
+                  className="absolute bottom-0 w-full h-full object-cover"
+                  src={Placeholder}
+                  alt=""
+                />
+                <img
+                  src={screens[currentScreen].image}
+                  alt="Onboarding"
+                  className="w-full h-full object-cover relative"
+                />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="py-12 md:w-1/2 md:flex md:flex-col md:justify-center md:px-12">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.3 }}
-            className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white flex justify-center items-center flex-col"
+            className="p-6 text-center bg-gradient-to-t from-white md:bg-none md:p-0"
           >
-            <h2 className="text-xl font-semibold">
+            <h2 className="text-xl md:text-4xl font-semibold">
               {screens[currentScreen].title}
             </h2>
-            <h3 className="text-xl font-semibold text-custom-pink">
+            <h3 className="text-xl  md:text-4xl font-semibold text-custom-pink">
               {screens[currentScreen].subtitle}
             </h3>
-            <p className="mt-2 text-center text-sm text-custom-text-secondary">
+            <p className="mt-2 text-center text-sm md:text-lg text-custom-text-secondary">
               {screens[currentScreen].description}
             </p>
           </motion.div>
-        </motion.div>
-      </AnimatePresence>
-      <div className="p-4">
-        <div className="flex justify-center mb-4">
-          {screens.map((_, index) => (
+
+          <div className="p-4 md:mt-8">
+            <div className="flex justify-center mb-4 md:mb-8">
+              {screens.map((_, index) => (
+                <motion.div
+                  key={index}
+                  className={`w-2 h-2 rounded-full mx-1 ${
+                    index === currentScreen ? "bg-custom-pink" : "bg-gray-300"
+                  }`}
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: index === currentScreen ? 1.2 : 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+              ))}
+            </div>
             <motion.div
-              key={index}
-              className={`w-2 h-2 rounded-full mx-1 ${
-                index === currentScreen ? "bg-custom-pink" : "bg-gray-300"
-              }`}
-              initial={{ scale: 0.8 }}
-              animate={{ scale: index === currentScreen ? 1.2 : 1 }}
-              transition={{ duration: 0.3 }}
-            />
-          ))}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.3 }}
+              className="flex flex-col"
+            >
+              <Button
+                onClick={handleNext}
+                className="w-full md:w-auto bg-custom-pink mb-2 md:mb-0 h-[44px] rounded-[12px] px-12"
+              >
+                {isLastScreen ? "Continue" : "Next"}
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={handleSkip}
+                className="w-full md:w-auto md:ml-4"
+              >
+                Skip
+              </Button>
+            </motion.div>
+          </div>
         </div>
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.3 }}
-        >
-          <Button
-            onClick={handleNext}
-            className="w-full bg-custom-pink mb-2 h-[44px] rounded-[12px]"
-          >
-            {isLastScreen ? "Continue" : "Next"}
-          </Button>
-          <Button variant="ghost" onClick={handleSkip} className="w-full">
-            Skip
-          </Button>
-        </motion.div>
       </div>
     </div>
   );

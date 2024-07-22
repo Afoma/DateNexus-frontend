@@ -16,12 +16,15 @@ import { Input } from "@/components/ui/input";
 import Line from "@/assets/Line.svg";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
+import TopCurveWhite from "./TopCurveWhite";
 
 const FormSchema = z.object({
   email: z.string().email(),
 });
 
 const Signup = () => {
+  const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -31,15 +34,27 @@ const Signup = () => {
 
   function onSubmit(data) {
     console.log(data);
+    navigate("/otp");
   }
 
   return (
-    <div className="h-screen grid">
-      <TopCurve />
-      <div className="px-6 flex flex-col gap-8">
+    <div className="h-screen grid lg:grid-cols-[550px_1fr]">
+      <div className="hidden lg:grid lg:h-screen lg:bg-custom-gradient">
+        <TopCurveWhite />
+        <h3 className=" text-white text-6xl text-center font-semibold">
+          <span className="text-white_transparent text-4xl font-medium">
+            Welcome to
+          </span>{" "}
+          DateNexus
+        </h3>
+      </div>
+      <div className="lg:hidden">
+        <TopCurve />
+      </div>
+      <div className="px-6 md:px-[170px] md:py-[100px] flex flex-col gap-8">
         <div className="grid gap-2">
           <h3 className="font-semibold text-black text-base">
-            Sign <span className="text-custom-pink">In</span>
+            Sign <span className="text-custom-pink">Up</span>
           </h3>
           <div className="flex flex-col gap-2">
             <h3 className="text-4xl text-custom-pink font-semibold">
@@ -84,13 +99,15 @@ const Signup = () => {
           <span>OR</span>
           <img src={Line} alt="" />
         </div>
-        <Button
-          variant="outline"
-          className="font-semibold text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
-        >
-          Sign up with Passkey
-        </Button>
-        <Link to="/signin">
+        <Link to="/createwallet" className="w-full">
+          <Button
+            variant="outline"
+            className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
+          >
+            Sign in with Passkey
+          </Button>
+        </Link>
+        <Link to="/signup">
           <Button variant="link" className="flex gap-1 w-full">
             Have an account already?{" "}
             <span className="text-custom-pink">Sign in</span>

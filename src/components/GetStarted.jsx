@@ -18,7 +18,7 @@ const GetStarted = () => {
       <div className="lg:hidden">
         <TopCurve />
       </div>
-      <div className="px-6 lg:px-[170px] lg:self-center">
+      <div className="px-6 md:px-[170px] md:py-[100px]  lg:self-center">
         <div className="flex flex-col items-center gap-8 justify-center">
           <Brand />
           <div className="flex flex-col items-center gap-2">

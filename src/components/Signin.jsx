@@ -16,12 +16,14 @@ import { Input } from "@/components/ui/input";
 import Line from "@/assets/Line.svg";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 const FormSchema = z.object({
   email: z.string().email(),
 });
 
 const Signin = () => {
+  const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -31,6 +33,7 @@ const Signin = () => {
 
   function onSubmit(data) {
     console.log(data);
+    navigate("/otp");
   }
 
   return (
@@ -79,7 +82,7 @@ const Signin = () => {
             </Button>
           </form>
         </Form>
-        <div className="flex gap-4 justify-center">
+        <div className="flex gap-2 justify-center">
           <img src={Line} alt="" />
           <span>OR</span>
           <img src={Line} alt="" />

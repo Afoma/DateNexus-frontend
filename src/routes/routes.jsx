@@ -5,6 +5,7 @@ import OnboardingScreen from "@/components/Onboarding";
 import Signin from "@/components/Signin";
 import Signup from "@/components/Signup";
 import OtpConfirmation from "@/components/OtpConfirmation";
+import Passkey from "@/components/Passkey";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: "signin", element: <Signin /> },
       { path: "signup", element: <Signup /> },
       { path: "otp", element: <OtpConfirmation /> },
+      { path: "createwallet", element: <Passkey /> },
     ],
   },
 ]);

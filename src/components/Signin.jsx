@@ -87,12 +87,14 @@ const Signin = () => {
           <span>OR</span>
           <img src={Line} alt="" />
         </div>
-        <Button
-          variant="outline"
-          className="font-semibold text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
-        >
-          Sign in with Passkey
-        </Button>
+        <Link to="/createwallet" className="w-full">
+          <Button
+            variant="outline"
+            className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
+          >
+            Sign in with Passkey
+          </Button>
+        </Link>
         <Link to="/signup">
           <Button variant="link" className="flex gap-1 w-full">
             Don't have an account?{" "}

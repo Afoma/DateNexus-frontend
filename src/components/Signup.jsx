@@ -39,7 +39,7 @@ const Signup = () => {
 
   return (
     <div className="h-screen grid lg:grid-cols-[550px_1fr]">
-      <div className="hidden lg:grid lg:h-screen lg:bg-custom-gradient">
+      <div className="hidden lg:grid lg:min-h-screen lg:bg-custom-gradient">
         <TopCurveWhite />
         <h3 className=" text-white text-6xl text-center font-semibold">
           <span className="text-white_transparent text-4xl font-medium">

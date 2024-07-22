@@ -9,7 +9,7 @@ const GetStarted = () => {
 
   return (
     <div className="h-screen grid lg:grid-cols-[550px_1fr]">
-      <div className="hidden lg:grid lg:h-screen lg:bg-custom-gradient">
+      <div className="hidden lg:grid lg:min-h-screen lg:bg-custom-gradient">
         <TopCurveWhite />
         <h3 className=" text-white text-6xl text-center font-semibold">
           <span className="text-white_transparent text-4xl font-medium">Welcome to</span> DateNexus
@@ -19,7 +19,7 @@ const GetStarted = () => {
         <TopCurve />
       </div>
       <div className="px-6 md:px-[170px] md:py-[100px]  lg:self-center">
-        <div className="flex flex-col items-center gap-8 justify-center">
+        <div className="flex flex-col items-center gap-6 justify-center">
           <Brand />
           <div className="flex flex-col items-center gap-2">
             <h3 className="text-4xl text-custom-pink font-semibold">
@@ -30,7 +30,7 @@ const GetStarted = () => {
             </p>
           </div>
           <Button
-            className="w-full bg-custom-pink rounded-[12px] text-whitish text-xs mt-[100px] h-[44px]"
+            className="w-full bg-custom-pink rounded-[12px] text-whitish text-xs mt-[100px] md:mt-[50px] h-[44px]"
             onClick={onGetStarted}
           >
             Get Started

@@ -61,7 +61,7 @@ const OnboardingScreen = () => {
           className="flex-1 relative overflow-hidden"
         >
           <div className="relative">
-            <img className="absolute mt-[75px]" src={Placeholder} alt="" />
+            <img className="absolute mt-[70px]" src={Placeholder} alt="" />
             <img
               src={screens[currentScreen].image}
               alt="Onboarding"
@@ -105,7 +105,10 @@ const OnboardingScreen = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.3 }}
         >
-          <Button onClick={handleNext} className="w-full bg-custom-pink mb-2">
+          <Button
+            onClick={handleNext}
+            className="w-full bg-custom-pink mb-2 h-[44px] rounded-[12px]"
+          >
             {isLastScreen ? "Continue" : "Next"}
           </Button>
           <Button variant="ghost" onClick={handleSkip} className="w-full">

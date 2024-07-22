@@ -60,27 +60,29 @@ const OnboardingScreen = () => {
           transition={{ duration: 0.3 }}
           className="flex-1 relative overflow-hidden"
         >
-          <div>
-            <img className="absolute" src={Placeholder} alt="" />
+          <div className="relative">
+            <img className="absolute mt-[80px]" src={Placeholder} alt="" />
             <img
               src={screens[currentScreen].image}
               alt="Onboarding"
-              className="w-full h-full object-cover z-50 relative"
+              className="w-full h-full object-cover relative"
             />
           </div>
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.3 }}
-            className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white"
+            className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white flex justify-center items-center flex-col"
           >
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-xl font-semibold">
               {screens[currentScreen].title}
             </h2>
-            <h3 className="text-xl font-semibold text-pink-500">
+            <h3 className="text-xl font-semibold text-custom-pink">
               {screens[currentScreen].subtitle}
             </h3>
-            <p className="mt-2">{screens[currentScreen].description}</p>
+            <p className="mt-2 text-center text-sm text-custom-text-secondary">
+              {screens[currentScreen].description}
+            </p>
           </motion.div>
         </motion.div>
       </AnimatePresence>
@@ -90,7 +92,7 @@ const OnboardingScreen = () => {
             <motion.div
               key={index}
               className={`w-2 h-2 rounded-full mx-1 ${
-                index === currentScreen ? "bg-pink-500" : "bg-gray-300"
+                index === currentScreen ? "bg-custom-pink" : "bg-gray-300"
               }`}
               initial={{ scale: 0.8 }}
               animate={{ scale: index === currentScreen ? 1.2 : 1 }}
@@ -103,7 +105,7 @@ const OnboardingScreen = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.3 }}
         >
-          <Button onClick={handleNext} className="w-full mb-2">
+          <Button onClick={handleNext} className="w-full bg-custom-pink mb-2">
             {isLastScreen ? "Continue" : "Next"}
           </Button>
           <Button variant="ghost" onClick={handleSkip} className="w-full">

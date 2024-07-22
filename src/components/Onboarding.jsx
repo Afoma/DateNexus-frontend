@@ -61,7 +61,7 @@ const OnboardingScreen = () => {
           className="flex-1 relative overflow-hidden"
         >
           <div className="relative">
-            <img className="absolute mt-[70px]" src={Placeholder} alt="" />
+            <img className="absolute mt-[30px]" src={Placeholder} alt="" />
             <img
               src={screens[currentScreen].image}
               alt="Onboarding"

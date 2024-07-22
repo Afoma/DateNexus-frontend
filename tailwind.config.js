@@ -51,6 +51,7 @@ export default {
         "custom-text-secondary": "#A3A3A3",
         grey: "#D9D9D9",
         whitish: "#F5F5F5",
+        otp_grey: "#F5F6F8",
       },
       backgroundImage: {
         "custom-gradient":

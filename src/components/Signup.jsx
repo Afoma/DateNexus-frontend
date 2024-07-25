@@ -83,7 +83,7 @@ const Signup = () => {
         </h3>
       </div>
       <div className="flex items-center justify-center min-h-screen lg:min-h-0">
-        <div className="lg:hidden absolute top-0 left-0 right-0">
+        <div className="lg:hidden fixed top-0 left-0 right-0">
           <TopCurve />
         </div>
         <div className="px-6 md:px-[170px] md:py-[100px] flex flex-col gap-8">
@@ -196,7 +196,7 @@ const Signup = () => {
             </Button>
           </Link>
         </div>
-        <div className="lg:hidden absolute bottom-0 right-0">
+        <div className="lg:hidden fixed bottom-0 right-0">
           <BottomCurve />
         </div>
       </div>

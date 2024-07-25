@@ -1,43 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect } from "react";
+import { motion } from "framer-motion";
 import Brand from "./Brand";
 
-const AppLoader = () => {
-  const [currentText, setCurrentText] = useState(0);
-  const texts = ["Find Love", "Connect with like mind", "Find Peace"];
-
+const AppLoader = ({ onLoadingComplete }) => {
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentText((prevText) => (prevText + 1) % texts.length);
-    }, 2000); // Change text every 2 seconds
-
-    return () => clearInterval(interval);
-  }, []); 
+    const timer = setTimeout(onLoadingComplete, 5000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className="h-screen flex gap-4 flex-col justify-center overflow-hidden bg-custom-gradient">
-      <div className="flex justify-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1.5 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-custom-gradient"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.5, delay: 0.5 }}
+        className="text-center"
+      >
         <Brand />
-      </div>
-      <div className="flex justify-center relative">
-        {texts.map((text, index) => (
-          <h3
-            key={text}
-            className={`
-              absolute text-sm font-bold text-whitish
-              transition-all duration-500 ease-in-out
-              ${
-                index === currentText
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-5"
-              }
-            `}
-          >
-            {text}
-          </h3>
-        ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

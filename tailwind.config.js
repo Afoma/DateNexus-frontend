@@ -56,7 +56,7 @@ export default {
       },
       backgroundImage: {
         "custom-gradient":
-          "linear-gradient(178deg, #F83E67 -11.64%, #A50946 81.11%)",
+          "linear-gradient(178deg, #F83E67 -11.64%, #A50976 81.11%)",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],

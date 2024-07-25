@@ -1,40 +1,44 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import AppLoader from "./components/AppLoader";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false);
+  const hasInitialized = useRef(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const loadingTimer = setTimeout(() => {
+    if (hasInitialized.current) return;
+    hasInitialized.current = true;
+
+    const hasSeenLoader = sessionStorage.getItem("hasSeenLoader");
+    if (location.pathname === "/" && !hasSeenLoader) {
+      sessionStorage.setItem("hasSeenLoader", "true");
+    } else {
       setIsLoading(false);
-      setTimeout(() => setShowContent(true), 100);
-    }, 6000);
+    }
+  }, [location.pathname]);
 
-    return () => clearTimeout(loadingTimer);
-  }, []);
-
-  const handleGetStarted = () => {
-    navigate('/onboarding');
-  };
+  const handleLoadingComplete = () => setIsLoading(false);
+  const handleGetStarted = () => navigate("/onboarding");
 
   return (
     <div className="min-h-screen font-sans">
-      {isLoading && <AppLoader />}
-      <div
-        className={`transition-opacity duration-1000 ease-in-out ${
-          showContent ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {!isLoading && (
-          location.pathname === '/' ? 
-            <Outlet context={{ onGetStarted: handleGetStarted }} /> :
-            <Outlet />
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <AppLoader key="loader" onLoadingComplete={handleLoadingComplete} />
+        ) : (
+          <div key="content">
+            {location.pathname === "/" ? (
+              <Outlet context={{ onGetStarted: handleGetStarted }} />
+            ) : (
+              <Outlet />
+            )}
+          </div>
         )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 };

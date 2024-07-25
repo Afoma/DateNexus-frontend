@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSwipeable } from "react-swipeable";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import Placeholder from "@/assets/onbordingPlaceholder.svg";
 import Boarding1 from "@/assets/onBoarding1.svg";
 import Boarding2 from "@/assets/onBoarding2.svg";
 import Boarding3 from "@/assets/onBoarding3.svg";
@@ -10,17 +10,6 @@ import Boarding3 from "@/assets/onBoarding3.svg";
 const OnboardingScreen = () => {
   const [currentScreen, setCurrentScreen] = useState(0);
   const navigate = useNavigate();
-
-  const x = useMotionValue(0);
-  const opacity = useTransform(x, [-100, 0, 100], [0, 1, 0]);
-
-  const handleDragEnd = (event, info) => {
-    if (info.offset.x > 100 && currentScreen > 0) {
-      setCurrentScreen(currentScreen - 1);
-    } else if (info.offset.x < -100 && currentScreen < screens.length - 1) {
-      setCurrentScreen(currentScreen + 1);
-    }
-  };
 
   const screens = [
     {
@@ -58,53 +47,59 @@ const OnboardingScreen = () => {
     navigate("/signin");
   };
 
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: handleNext,
+    onSwipedRight: () => {
+      if (currentScreen > 0) {
+        setCurrentScreen(currentScreen - 1);
+      }
+    },
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
+
   const isLastScreen = currentScreen === screens.length - 1;
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col overflow-hidden" {...swipeHandlers}>
       <div className="flex flex-col justify-between h-full md:flex-row">
-        <div className="md:w-1/2 md:h-full relative border border-solid border-black">
-          <AnimatePresence mode="wait">
+        <div className="md:w-1/2 md:h-full relative overflow-hidden">
+          <AnimatePresence initial={false} custom={currentScreen}>
             <motion.div
               key={currentScreen}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={1}
-              onDragEnd={handleDragEnd}
-              style={{ x, opacity }}
-              initial={{ opacity: 0, x: 50 }}
+              custom={currentScreen}
+              initial={{ opacity: 0, x: 300 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3 }}
-              className="h-full"
+              exit={{ opacity: 0, x: -300 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+              }}
+              className="w-full h-full"
             >
-              <div className="relative h-full">
-                <img
-                  className="absolute bottom-0 w-full h-full object-cover"
-                  src={Placeholder}
-                  alt=""
-                />
-                <img
-                  src={screens[currentScreen].image}
-                  alt="Onboarding"
-                  className="w-full h-full object-cover relative"
-                />
-              </div>
+              <img
+                src={screens[currentScreen].image}
+                alt="Onboarding"
+                className="w-full h-full object-cover relative"
+              />
             </motion.div>
           </AnimatePresence>
         </div>
 
-        <div className="py-12 md:w-1/2 md:flex md:flex-col md:justify-center md:px-12 border border-solid border-black">
+        <div className="py-12 md:w-1/2 md:flex md:flex-col md:justify-center md:px-12">
           <motion.div
+            key={currentScreen}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.3 }}
-            className="p-6 text-center bg-gradient-to-t from-white md:bg-none md:p-0"
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="p-4 text-center bg-gradient-to-t from-white md:bg-none md:p-0"
           >
             <h2 className="text-xl md:text-4xl font-semibold">
               {screens[currentScreen].title}
             </h2>
-            <h3 className="text-xl  md:text-4xl font-semibold text-custom-pink">
+            <h3 className="text-xl md:text-4xl font-semibold text-custom-pink">
               {screens[currentScreen].subtitle}
             </h3>
             <p className="mt-2 text-center text-sm md:text-lg text-custom-text-secondary">

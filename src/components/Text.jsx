@@ -5,7 +5,7 @@ const Text = ({ title, pinkTitle, children }) => {
     <div className="flex flex-col gap-3">
       <h3 className="text-2xl lg:text-4xl text-black font-semibold flex justify-center items-center gap-2">
         {title}
-        <span className="text-custom-pink">{pinkTitle}</span>
+        <span className="text-gradient-custom">{pinkTitle}</span>
       </h3>
       <p className="text-custom-text-secondary text-center text-sm">
         {children}

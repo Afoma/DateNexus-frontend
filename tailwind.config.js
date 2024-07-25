@@ -49,7 +49,8 @@ export default {
         "custom-pink": "#F83E67",
         "custom-red": "#A50946",
         "custom-text-secondary": "#A3A3A3",
-        "custom-black": '#383838',
+        "custom-black": "#383838",
+        "input-bg": "#F5F6F8",
         grey: "#D9D9D9",
         white_transparent: "rgba(255, 255, 255, 0.50)",
         whitish: "#F5F5F5",
@@ -58,8 +59,7 @@ export default {
       backgroundImage: {
         "custom-gradient":
           "linear-gradient(178deg, #F83E67 -11.64%, #A50976 81.11%)",
-        "text-gradient":
-          "linear-gradient(90deg, #F83E67 0%, #A50976 100%)",
+        "text-gradient": "linear-gradient(90deg, #F83E67 0%, #A50976 100%)",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],

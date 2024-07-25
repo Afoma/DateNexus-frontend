@@ -1,10 +1,10 @@
 import TopCurve from "./TopCurve";
 import Text from "./Text";
-import { Button } from "./ui/button";
+
 import TopCurveWhite from "./TopCurveWhite";
 import Logo from "./Logo";
 
-const Passkey = () => {
+const WalletCreation = () => {
   return (
     <div className="h-screen grid lg:grid-cols-[550px_1fr]">
       <div className="hidden lg:grid lg:min-h-screen lg:bg-custom-gradient">
@@ -31,34 +31,11 @@ const Passkey = () => {
               </Text>
             </div>
           </div>
-          <div className="flex flex-col gap-4">
-            <Button className="w-full rounded-[14px] h-[44px] bg-custom-gradient">
-              Create a smart wallet
-            </Button>
-            <Button variant="link" className="w-full rounded-[14px]">
-              I already have a wallet
-            </Button>
-          </div>
-          <p className="font-medium text-sm text-custom-text-secondary px-6 text-center py-4">
-            By using Sage Wallet, you accept the{" "}
-            <Button
-              variant="link"
-              className="text-custom-pink w-auto m-0 p-0 h-auto"
-            >
-              terms
-            </Button>{" "}
-            and{" "}
-            <Button
-              variant="link"
-              className="text-custom-pink w-auto m-0 p-0 h-auto"
-            >
-              privacy policy.
-            </Button>
-          </p>
+          <div className="flex flex-col gap-4"></div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Passkey;
+export default WalletCreation;

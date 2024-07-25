@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useDrag } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import Placeholder from "@/assets/onbordingPlaceholder.svg";
@@ -8,8 +9,26 @@ import Boarding2 from "@/assets/onBoarding2.svg";
 import Boarding3 from "@/assets/onBoarding3.svg";
 
 const OnboardingScreen = () => {
+  const [dragStart, setDragStart] = useState(0);
+  const dragThreshold = 50;
   const [currentScreen, setCurrentScreen] = useState(0);
   const navigate = useNavigate();
+
+  const drag = useDrag(({ offset: [ox], down, movement: [_mx] }) => {
+    if (down) {
+      setDragStart(ox);
+    } else {
+      const dragDistance = ox - dragStart;
+      if (dragDistance > dragThreshold && currentScreen > 0) {
+        setCurrentScreen(currentScreen - 1);
+      } else if (
+        dragDistance < -dragThreshold &&
+        currentScreen < screens.length - 1
+      ) {
+        setCurrentScreen(currentScreen + 1);
+      }
+    }
+  });
 
   const screens = [
     {
@@ -52,7 +71,7 @@ const OnboardingScreen = () => {
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <div className="flex flex-col justify-between h-full md:flex-row">
-        <div className="md:w-1/2 md:h-full relative">
+        <div className="md:w-1/2 md:h-full relative border border-solid border-black">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentScreen}
@@ -61,7 +80,20 @@ const OnboardingScreen = () => {
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.3 }}
               className="h-full"
+              {...drag()}
             >
+              <motion.div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 5,
+                  background: "linear-gradient(to right, #F83E67, #A50976)",
+                  transformOrigin: "0%",
+                }}
+                animate={{ scaleX: drag.get() / window.innerWidth }}
+              />
               <div className="relative h-full">
                 <img
                   className="absolute bottom-0 w-full h-full object-cover"
@@ -78,7 +110,7 @@ const OnboardingScreen = () => {
           </AnimatePresence>
         </div>
 
-        <div className="py-12 md:w-1/2 md:flex md:flex-col md:justify-center md:px-12">
+        <div className="py-12 md:w-1/2 md:flex md:flex-col md:justify-center md:px-12 border border-solid border-black">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

@@ -23,7 +23,7 @@ const GetStarted = () => {
         <div className="lg:hidden absolute top-0 left-0 right-0">
           <TopCurve />
         </div>
-        <div className="px-6 md:px-[170px] py-20 lg:py-0 flex flex-col items-center justify-center z-10">
+        <div className="md:px-[170px] py-20 lg:py-0 flex flex-col items-center justify-center z-10">
           <div className="flex flex-col items-center gap-6 justify-center">
             <Logo />
             <div className="flex flex-col items-center gap-2">
@@ -35,7 +35,7 @@ const GetStarted = () => {
               </p>
             </div>
             <Button
-              className="w-full bg-text-gradient rounded-[12px] text-whitish text-xs mt-[50px] h-[44px]"
+              className="w-full bg-text-gradient rounded-[12px] text-whitish text-sm mt-[50px] h-[44px]"
               onClick={onGetStarted}
             >
               Get Started

@@ -61,7 +61,10 @@ const OnboardingScreen = () => {
   const isLastScreen = currentScreen === screens.length - 1;
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden" {...swipeHandlers}>
+    <div
+      className="h-screen flex flex-col font-sans overflow-hidden"
+      {...swipeHandlers}
+    >
       <div className="flex flex-col justify-between h-full md:flex-row">
         <div className="md:w-1/2 md:h-full relative overflow-hidden">
           <AnimatePresence initial={false} custom={currentScreen}>
@@ -96,13 +99,13 @@ const OnboardingScreen = () => {
             transition={{ duration: 0.3 }}
             className="p-4 text-center bg-gradient-to-t from-white md:bg-none md:p-0"
           >
-            <h2 className="text-xl md:text-4xl font-semibold">
+            <h2 className="text-xl md:text-4xl font-semibold text-gradient-custom">
               {screens[currentScreen].title}
             </h2>
-            <h3 className="text-xl md:text-4xl font-semibold text-custom-pink">
+            <h3 className="text-xl md:text-4xl font-semibold text-custom-black">
               {screens[currentScreen].subtitle}
             </h3>
-            <p className="mt-2 text-center text-sm md:text-lg text-custom-text-secondary">
+            <p className="mt-2 text-center text-sm md:text-lg text-custom-text-secondary text-balance">
               {screens[currentScreen].description}
             </p>
           </motion.div>
@@ -129,14 +132,14 @@ const OnboardingScreen = () => {
             >
               <Button
                 onClick={handleNext}
-                className="w-full md:w-auto bg-custom-pink mb-2 md:mb-0 h-[44px] rounded-[12px] px-12"
+                className="w-full md:w-auto text-whitish font-semibold bg-text-gradient mb-2 md:mb-0 h-[44px] rounded-[12px] px-12"
               >
                 {isLastScreen ? "Continue" : "Next"}
               </Button>
               <Button
                 variant="ghost"
                 onClick={handleSkip}
-                className="w-full md:w-auto"
+                className="w-full md:w-auto text-custom-pink text-xs font-medium"
               >
                 Skip
               </Button>

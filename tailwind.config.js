@@ -49,6 +49,7 @@ export default {
         "custom-pink": "#F83E67",
         "custom-red": "#A50946",
         "custom-text-secondary": "#A3A3A3",
+        "custom-black": '#383838',
         grey: "#D9D9D9",
         white_transparent: "rgba(255, 255, 255, 0.50)",
         whitish: "#F5F5F5",

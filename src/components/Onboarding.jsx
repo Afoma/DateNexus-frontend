@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { motion, AnimatePresence, useDrag } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import Placeholder from "@/assets/onbordingPlaceholder.svg";
@@ -9,26 +8,19 @@ import Boarding2 from "@/assets/onBoarding2.svg";
 import Boarding3 from "@/assets/onBoarding3.svg";
 
 const OnboardingScreen = () => {
-  const [dragStart, setDragStart] = useState(0);
-  const dragThreshold = 50;
   const [currentScreen, setCurrentScreen] = useState(0);
   const navigate = useNavigate();
 
-  const drag = useDrag(({ offset: [ox], down, movement: [_mx] }) => {
-    if (down) {
-      setDragStart(ox);
-    } else {
-      const dragDistance = ox - dragStart;
-      if (dragDistance > dragThreshold && currentScreen > 0) {
-        setCurrentScreen(currentScreen - 1);
-      } else if (
-        dragDistance < -dragThreshold &&
-        currentScreen < screens.length - 1
-      ) {
-        setCurrentScreen(currentScreen + 1);
-      }
+  const x = useMotionValue(0);
+  const opacity = useTransform(x, [-100, 0, 100], [0, 1, 0]);
+
+  const handleDragEnd = (event, info) => {
+    if (info.offset.x > 100 && currentScreen > 0) {
+      setCurrentScreen(currentScreen - 1);
+    } else if (info.offset.x < -100 && currentScreen < screens.length - 1) {
+      setCurrentScreen(currentScreen + 1);
     }
-  });
+  };
 
   const screens = [
     {
@@ -75,25 +67,17 @@ const OnboardingScreen = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentScreen}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={1}
+              onDragEnd={handleDragEnd}
+              style={{ x, opacity }}
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.3 }}
               className="h-full"
-              {...drag()}
             >
-              <motion.div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: 5,
-                  background: "linear-gradient(to right, #F83E67, #A50976)",
-                  transformOrigin: "0%",
-                }}
-                animate={{ scaleX: drag.get() / window.innerWidth }}
-              />
               <div className="relative h-full">
                 <img
                   className="absolute bottom-0 w-full h-full object-cover"

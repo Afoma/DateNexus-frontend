@@ -23,6 +23,7 @@ import { useState } from "react";
 import axiosInstance from "@/services/api-client";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -62,7 +63,8 @@ const Signin = () => {
   };
 
   return (
-    <div className="h-screen grid lg:grid-cols-[550px_1fr]">
+    <div className="h-screen grid lg:grid-cols-[550px_1fr] overflow-hidden">
+      <Toaster />
       <div className="hidden lg:grid lg:min-h-screen lg:bg-custom-gradient">
         <TopCurveWhite />
         <h3 className=" text-white text-6xl text-center font-semibold">

@@ -72,7 +72,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="h-screen grid lg:grid-cols-[550px_1fr]">
+    <div className="h-screen grid lg:grid-cols-[550px_1fr] overflow-hidden">
       <div className="hidden lg:grid lg:min-h-screen lg:bg-custom-gradient">
         <TopCurveWhite />
         <h3 className=" text-white text-6xl text-center font-semibold">
@@ -189,7 +189,7 @@ const Signup = () => {
               Sign up with Passkey
             </Button>
           </Link>
-          <Link to="/signin">
+          <Link to="/signup">
             <Button variant="link" className="flex gap-1 w-full">
               Already have an account?{" "}
               <span className="text-custom-pink">Sign in</span>

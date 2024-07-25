@@ -18,24 +18,48 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import TopCurveWhite from "./TopCurveWhite";
+import BottomCurve from "./BottomCurve";
+import { useState } from "react";
+import axiosInstance from "@/services/api-client";
+import { Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const FormSchema = z.object({
   email: z.string().email(),
+  password: z
+    .string()
+    .min(7, { message: "Password must be more than 7 characters" }),
 });
 
 const Signin = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
+      password: "",
     },
   });
 
-  function onSubmit(data) {
-    console.log(data);
-    navigate("/otp");
-  }
+  const onSubmit = (values) => {
+    setIsLoading(true);
+    axiosInstance
+      .post("/auth/signin", {
+        email: values.email,
+        password: values.password,
+      })
+      .then((res) => {
+        localStorage.setItem("jwt", res.data.token);
+        navigate("/otp");
+        form.reset();
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+        setIsLoading(false);
+      });
+  };
 
   return (
     <div className="h-screen grid lg:grid-cols-[550px_1fr]">
@@ -48,71 +72,100 @@ const Signin = () => {
           DateNexus
         </h3>
       </div>
-      <div className="lg:hidden">
-        <TopCurve />
-      </div>
-      <div className="px-6 md:px-[170px] md:py-[100px] flex flex-col gap-8">
-        <div className="grid gap-2">
-          <h3 className="font-semibold text-black text-base">
-            Sign <span className="text-custom-pink">In</span>
-          </h3>
-          <div className="flex flex-col gap-2">
-            <h3 className="text-4xl text-custom-pink font-semibold">
-              <span className="text-black">DateN</span>exus
+      <div className="flex items-center justify-center min-h-screen lg:min-h-0">
+        <div className="lg:hidden absolute top-0 left-0 right-0">
+          <TopCurve />
+        </div>
+        <div className="px-6 md:px-[170px] md:py-[100px] flex flex-col gap-8">
+          <div className="grid gap-2">
+            <h3 className="font-semibold text-black text-base">
+              Sign <span className="text-custom-pink">In</span>
             </h3>
-            <p className="text-custom-text-secondary text-sm">
-              Find Love Onchain
-            </p>
+            <div className="flex flex-col gap-2">
+              <h3 className="text-4xl text-gradient-custom font-semibold">
+                <span className="text-black">DateN</span>exus
+              </h3>
+              <p className="text-custom-text-secondary text-sm">
+                Find Love Onchain
+              </p>
+            </div>
           </div>
-        </div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      className={cn(
-                        "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px]"
-                      )}
-                      placeholder="Enter your email address"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-custom-black text-sm">
+                      Email
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        className={cn(
+                          "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px] bg-input-bg text-custom-black"
+                        )}
+                        placeholder="Enter your email address"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-custom-black text-sm">
+                      Password
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        className={cn(
+                          "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px] bg-input-bg text-custom-black"
+                        )}
+                        placeholder="Enter your password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="submit"
+                className="w-full bg-custom-gradient h-[44px] rounded-[12px]"
+              >
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Continue
+              </Button>
+            </form>
+          </Form>
+          <div className="flex gap-2 justify-center">
+            <img src={Line} alt="" />
+            <span>OR</span>
+            <img src={Line} alt="" />
+          </div>
+          <Link to="/createwallet" className="w-full">
             <Button
-              type="submit"
-              className="w-full bg-custom-pink h-[44px] rounded-[12px]"
+              variant="outline"
+              className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
             >
-              Continue
+              Sign in with Passkey
             </Button>
-          </form>
-        </Form>
-        <div className="flex gap-2 justify-center">
-          <img src={Line} alt="" />
-          <span>OR</span>
-          <img src={Line} alt="" />
+          </Link>
+          <Link to="/signup">
+            <Button variant="link" className="flex gap-1 w-full">
+              Don't have an account?{" "}
+              <span className="text-custom-pink">Sign up</span>
+            </Button>
+          </Link>
         </div>
-        <Link to="/createwallet" className="w-full">
-          <Button
-            variant="outline"
-            className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
-          >
-            Sign in with Passkey
-          </Button>
-        </Link>
-        <Link to="/signup">
-          <Button variant="link" className="flex gap-1 w-full">
-            Don't have an account?{" "}
-            <span className="text-custom-pink">Sign up</span>
-          </Button>
-        </Link>
+        <div className="lg:hidden absolute bottom-0 right-0">
+          <BottomCurve />
+        </div>
       </div>
     </div>
   );

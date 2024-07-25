@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import Placeholder from "@/assets/onbordingPlaceholder.svg";
-import Boarding1 from "@/assets/boarding1.png";
-import Boarding2 from "@/assets/boarding2.png";
-import Boarding3 from "@/assets/boarding3.png";
+import Boarding1 from "@/assets/onBoarding1.svg";
+import Boarding2 from "@/assets/onBoarding2.svg";
+import Boarding3 from "@/assets/onBoarding3.svg";
 
 const OnboardingScreen = () => {
   const [currentScreen, setCurrentScreen] = useState(0);

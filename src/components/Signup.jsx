@@ -88,7 +88,7 @@ const Signup = () => {
         <div className="lg:hidden absolute top-0 left-0 right-0">
           <TopCurve />
         </div>
-        <div className="lg:hidden absolute bottom-0 right-0">
+        <div className="lg:hidden fixed bottom-0 right-0">
           <BottomCurve />
         </div>
         <div className="px-6 py-20 md:px-[170px] md:py-[100px] w-full max-w-md flex flex-col gap-8">
@@ -186,20 +186,22 @@ const Signup = () => {
             <span>OR</span>
             <img src={Line} alt="" />
           </div>
-          <Link to="/createwallet" className="w-full">
-            <Button
-              variant="outline"
-              className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
-            >
-              Sign up with Passkey
-            </Button>
-          </Link>
-          <Link to="/signup">
-            <Button variant="link" className="flex gap-1 w-full">
-              Already have an account?{" "}
-              <span className="text-custom-pink">Sign in</span>
-            </Button>
-          </Link>
+          <div className="flex flex-col gap-2">
+            <Link to="/createwallet" className="w-full">
+              <Button
+                variant="outline"
+                className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
+              >
+                Sign up with Passkey
+              </Button>
+            </Link>
+            <Link to="/signup">
+              <Button variant="link" className="flex gap-1 h-auto w-full">
+                Already have an account?{" "}
+                <span className="text-custom-pink">Sign in</span>
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

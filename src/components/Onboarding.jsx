@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import Placeholder from "@/assets/onbordingPlaceholder.svg";
@@ -10,6 +10,17 @@ import Boarding3 from "@/assets/onBoarding3.svg";
 const OnboardingScreen = () => {
   const [currentScreen, setCurrentScreen] = useState(0);
   const navigate = useNavigate();
+
+  const x = useMotionValue(0);
+  const opacity = useTransform(x, [-100, 0, 100], [0, 1, 0]);
+
+  const handleDragEnd = (event, info) => {
+    if (info.offset.x > 100 && currentScreen > 0) {
+      setCurrentScreen(currentScreen - 1);
+    } else if (info.offset.x < -100 && currentScreen < screens.length - 1) {
+      setCurrentScreen(currentScreen + 1);
+    }
+  };
 
   const screens = [
     {
@@ -52,10 +63,15 @@ const OnboardingScreen = () => {
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <div className="flex flex-col justify-between h-full md:flex-row">
-        <div className="md:w-1/2 md:h-full relative">
+        <div className="md:w-1/2 md:h-full relative border border-solid border-black">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentScreen}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={1}
+              onDragEnd={handleDragEnd}
+              style={{ x, opacity }}
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
@@ -78,7 +94,7 @@ const OnboardingScreen = () => {
           </AnimatePresence>
         </div>
 
-        <div className="py-12 md:w-1/2 md:flex md:flex-col md:justify-center md:px-12">
+        <div className="py-12 md:w-1/2 md:flex md:flex-col md:justify-center md:px-12 border border-solid border-black">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

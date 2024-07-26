@@ -22,7 +22,7 @@ import axiosInstance from "@/services/api-client";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
-import { Loader2 } from "lucide-react";
+import { PuffLoader } from "react-spinners";
 
 const FormSchema = z.object({
   pin: z.string().min(6, {
@@ -157,8 +157,11 @@ const OtpConfirmation = () => {
                 type="submit"
                 className="w-full h-[44px] rounded-[8px] bg-custom-gradient"
               >
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Submit
+                {isLoading ? (
+                  <PuffLoader color="#ffffff" size={24} />
+                ) : (
+                  "Continue"
+                )}
               </Button>
             </form>
           </Form>

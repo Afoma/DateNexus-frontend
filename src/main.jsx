@@ -4,24 +4,18 @@ import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import router from "./routes/routes";
 
+// Create a custom event for app installability
+window.appInstallEvent = new Event('appInstallable');
+
 // Make deferredPrompt a global variable
 window.deferredPrompt = null;
 
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent Chrome 67 and earlier from automatically showing the prompt
   e.preventDefault();
-  // Stash the event so it can be triggered later
   window.deferredPrompt = e;
-  // Optionally, show your own install button or UI element
-  showInstallPromotion();
+  // Dispatch the custom event
+  window.dispatchEvent(window.appInstallEvent);
 });
-
-function showInstallPromotion() {
-  // You can implement this function to show a custom install button or UI
-  console.log('App can be installed, show install button');
-  // For example, you could dispatch a custom event to notify your React components
-  window.dispatchEvent(new Event('appInstallable'));
-}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -18,7 +18,7 @@ export default defineConfig({
         icons: [
           {
             src: 'pwa-192x192.png',
-            sizes: '192x192',
+            sizes: '100x100',
             type: 'image/png'
           },
           {

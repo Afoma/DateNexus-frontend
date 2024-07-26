@@ -25,13 +25,17 @@ const WalletActions = () => {
               <img src={Wallet} alt="" />
             </div>
             <h3 className="text-center text-2xl lg:text-4xl text-black font-semibold">
-              Your DateNexus Wallet is{" "}
+              Your Smart Wallet is{" "}
               <span className="text-gradient-custom">ready!</span>
             </h3>
           </div>
           <div className="flex flex-col gap-4 py-10">
-            <Button className="w-full bg-custom-gradient rounded-[14px] h-[44px]">Fund Wallet</Button>
-            <Button className="w-full bg-otp_grey text-gradient-custom rounded-[14px] h-[44px]">Explore Wallet</Button>
+            <Button className="w-full bg-custom-gradient rounded-[14px] h-[44px]">
+              Fund Wallet
+            </Button>
+            <Button className="w-full bg-otp_grey text-gradient-custom rounded-[14px] h-[44px]">
+              Explore Wallet
+            </Button>
             <Button variant="ghost" className="w-full">
               Return to App
             </Button>

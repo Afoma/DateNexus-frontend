@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -18,6 +17,12 @@ import {
 import TopCurve from "./TopCurve";
 import TopCurveWhite from "./TopCurveWhite";
 import BottomCurve from "./BottomCurve";
+import { useState, useEffect } from "react";
+import axiosInstance from "@/services/api-client";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
 const FormSchema = z.object({
   pin: z.string().min(6, {
@@ -26,6 +31,11 @@ const FormSchema = z.object({
 });
 
 const OtpConfirmation = () => {
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
+  const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -33,12 +43,61 @@ const OtpConfirmation = () => {
     },
   });
 
-  function onSubmit(data) {
-    console.log(data);
-  }
+  useEffect(() => {
+    setEmail(localStorage.getItem("userEmail"));
+  }, []);
+
+  useEffect(() => {
+    if (cooldown > 0) {
+      const timer = setTimeout(() => setCooldown(cooldown - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [cooldown]);
+
+  const onSubmit = (values) => {
+    setIsLoading(true);
+    axiosInstance
+      .patch("/auth/signup", {
+        email: email,
+        otp: values.pin,
+      })
+      .then((res) => {
+        localStorage.setItem("jwt", res.data.token);
+        navigate("/createProfile");
+        form.reset();
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+        setIsLoading(false);
+      });
+  };
+
+  const handleResendCode = async () => {
+    if (isResending || cooldown > 0) return;
+
+    setIsResending(true);
+    try {
+      await axiosInstance.post("/auth/signup", {
+        email: email,
+        password: localStorage.getItem("tempPassword"),
+        passwordConfirm: localStorage.getItem("tempPassword"),
+      });
+      toast.success("New OTP sent successfully");
+      setCooldown(60); // Set a 60-second cooldown
+    } catch (error) {
+      console.error("Failed to resend OTP", error);
+      toast.error(error.response?.data?.message || "Failed to resend OTP");
+    } finally {
+      setIsResending(false);
+      localStorage.removeItem("tempPassword");
+      localStorage.removeItem("userEmail");
+    }
+  };
 
   return (
     <div className="h-screen grid lg:grid-cols-[550px_1fr]">
+      <Toaster />
       <div className="hidden lg:grid lg:min-h-screen lg:bg-custom-gradient">
         <TopCurveWhite />
         <h3 className=" text-white text-6xl text-center font-semibold">
@@ -76,9 +135,19 @@ const OtpConfirmation = () => {
                         </InputOTPGroup>
                       </InputOTP>
                     </FormControl>
-                    <FormDescription className="text-custom-pink text-sm font-medium">
-                      Resend code
-                    </FormDescription>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={handleResendCode}
+                      className="text-custom-pink text-sm font-medium p-0"
+                      disabled={isResending || cooldown > 0}
+                    >
+                      {isResending
+                        ? "Sending..."
+                        : cooldown > 0
+                        ? `Resend in ${cooldown}s`
+                        : "Resend code"}
+                    </Button>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -88,6 +157,7 @@ const OtpConfirmation = () => {
                 type="submit"
                 className="w-full h-[44px] rounded-[8px] bg-custom-gradient"
               >
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Submit
               </Button>
             </form>

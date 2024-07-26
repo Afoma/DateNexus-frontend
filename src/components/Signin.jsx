@@ -24,6 +24,7 @@ import axiosInstance from "@/services/api-client";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
+import { Eye, EyeOff } from "lucide-react";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -34,6 +35,7 @@ const FormSchema = z.object({
 
 const Signin = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -52,7 +54,7 @@ const Signin = () => {
       })
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
-        navigate("/otp");
+        navigate("/createProfile");
         form.reset();
         setIsLoading(false);
       })
@@ -124,13 +126,27 @@ const Signin = () => {
                       Password
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        className={cn(
-                          "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px] bg-input-bg text-custom-black"
-                        )}
-                        placeholder="Enter your password"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          className={cn(
+                            "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px] bg-input-bg text-custom-black pr-10"
+                          )}
+                          placeholder="Enter your password"
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-5 w-5 text-gray-400" />
+                          ) : (
+                            <Eye className="h-5 w-5 text-gray-400" />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

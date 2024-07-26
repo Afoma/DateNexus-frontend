@@ -7,6 +7,7 @@ import Signup from "@/components/Signup";
 import OtpConfirmation from "@/components/OtpConfirmation";
 import Passkey from "@/components/Passkey";
 import WalletCreation from "@/components/WalletCreation";
+import CreateProfile from "@/components/CreateProfile";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "otp", element: <OtpConfirmation /> },
       { path: "createwallet", element: <Passkey /> },
       { path: "creatingwallet", element: <WalletCreation /> },
+      { path: "createProfile", element: <CreateProfile /> },
     ],
   },
 ]);

@@ -24,6 +24,7 @@ import axiosInstance from "@/services/api-client";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
+import { Eye, EyeOff } from "lucide-react";
 
 const FormSchema = z
   .object({
@@ -42,6 +43,8 @@ const FormSchema = z
 
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -60,8 +63,9 @@ const Signup = () => {
         password: values.password,
         passwordConfirm: values.passwordConfirm,
       })
-      .then((res) => {
-        localStorage.setItem("jwt", res.data.token);
+      .then(() => {
+        localStorage.setItem("userEmail", values.email);
+        localStorage.setItem("tempPassword", values.password);
         navigate("/otp");
         form.reset();
         setIsLoading(false);
@@ -85,13 +89,10 @@ const Signup = () => {
         </h3>
       </div>
       <div className="flex items-center justify-center min-h-screen lg:min-h-0">
-        <div className="lg:hidden absolute top-0 left-0 right-0">
+        <div className="lg:hidden fixed top-0 left-0 right-0">
           <TopCurve />
         </div>
-        <div className="lg:hidden fixed bottom-0 right-0">
-          <BottomCurve />
-        </div>
-        <div className="px-6 py-20 md:px-[170px] md:py-[100px] w-full max-w-md flex flex-col gap-8">
+        <div className="px-6 md:px-[170px] md:py-[100px] flex flex-col gap-8">
           <div className="grid gap-2">
             <h3 className="font-semibold text-black text-base">
               Sign <span className="text-custom-pink">Up</span>
@@ -137,14 +138,27 @@ const Signup = () => {
                       Password
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        className={cn(
-                          "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px] bg-input-bg text-custom-black"
-                        )}
-                        placeholder="Enter your password"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          className={cn(
+                            "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px] bg-input-bg text-custom-black pr-10"
+                          )}
+                          placeholder="Enter your password"
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-5 w-5 text-gray-400" />
+                          ) : (
+                            <Eye className="h-5 w-5 text-gray-400" />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -159,14 +173,29 @@ const Signup = () => {
                       Confirm Password
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        className={cn(
-                          "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px] bg-input-bg text-custom-black"
-                        )}
-                        placeholder="Enter your password"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          type={showConfirmPassword ? "text" : "password"}
+                          className={cn(
+                            "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px] bg-input-bg text-custom-black pr-10"
+                          )}
+                          placeholder="Enter your password"
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
+                        >
+                          {showConfirmPassword ? (
+                            <EyeOff className="h-5 w-5 text-gray-400" />
+                          ) : (
+                            <Eye className="h-5 w-5 text-gray-400" />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -186,22 +215,25 @@ const Signup = () => {
             <span>OR</span>
             <img src={Line} alt="" />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 mb-10 lg:mb-0">
             <Link to="/createwallet" className="w-full">
               <Button
                 variant="outline"
                 className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
               >
-                Sign up with Passkey
+                Sign in with Passkey
               </Button>
             </Link>
             <Link to="/signup">
-              <Button variant="link" className="flex gap-1 h-auto w-full">
+              <Button variant="link" className="flex gap-1 w-full h-auto p-0">
                 Already have an account?{" "}
                 <span className="text-custom-pink">Sign in</span>
               </Button>
             </Link>
           </div>
+        </div>
+        <div className="lg:hidden fixed bottom-0 right-0">
+          <BottomCurve />
         </div>
       </div>
     </div>

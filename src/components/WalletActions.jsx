@@ -1,10 +1,9 @@
 import TopCurve from "./TopCurve";
-import Text from "./Text";
-
 import TopCurveWhite from "./TopCurveWhite";
-import Logo from "./Logo";
+import Wallet from "@/assets/Wallet.svg";
+import { Button } from "./ui/button";
 
-const WalletCreation = () => {
+const WalletActions = () => {
   return (
     <div className="h-screen grid lg:grid-cols-[550px_1fr]">
       <div className="hidden lg:grid lg:min-h-screen lg:bg-custom-gradient">
@@ -23,19 +22,24 @@ const WalletCreation = () => {
         <div className="px-6 md:px-[170px] flex flex-col justify-between h-[70%]">
           <div className="">
             <div className="flex justify-center">
-              <Logo />
+              <img src={Wallet} alt="" />
             </div>
-            <div className="">
-              <Text title="DateNexus" pinkTitle="wallet">
-                The quickest, simplest, and safest way to access the blockchain.
-              </Text>
-            </div>
+            <h3 className="text-center text-2xl lg:text-4xl text-black font-semibold">
+              Your DateNexus Wallet is{" "}
+              <span className="text-gradient-custom">ready!</span>
+            </h3>
           </div>
-          <div className="flex flex-col gap-4"></div>
+          <div className="flex flex-col gap-4 py-10">
+            <Button className="w-full bg-custom-gradient rounded-[14px] h-[44px]">Fund Wallet</Button>
+            <Button className="w-full bg-otp_grey text-gradient-custom rounded-[14px] h-[44px]">Explore Wallet</Button>
+            <Button variant="ghost" className="w-full">
+              Return to App
+            </Button>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default WalletCreation;
+export default WalletActions;

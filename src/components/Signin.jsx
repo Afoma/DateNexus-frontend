@@ -21,10 +21,10 @@ import TopCurveWhite from "./TopCurveWhite";
 import BottomCurve from "./BottomCurve";
 import { useState } from "react";
 import axiosInstance from "@/services/api-client";
-import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import { Eye, EyeOff } from "lucide-react";
+import { PuffLoader } from "react-spinners";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -156,8 +156,11 @@ const Signin = () => {
                 type="submit"
                 className="w-full bg-custom-gradient h-[44px] rounded-[12px]"
               >
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Continue
+                {isLoading ? (
+                  <PuffLoader color="#ffffff" size={24} />
+                ) : (
+                  "Continue"
+                )}
               </Button>
             </form>
           </Form>

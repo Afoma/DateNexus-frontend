@@ -1,9 +1,51 @@
+import React from "react";
 import { useOutletContext } from "react-router-dom";
 import TopCurve from "./TopCurve";
 import { Button } from "./ui/button";
 import TopCurveWhite from "./TopCurveWhite";
 import BottomCurve from "./BottomCurve";
 import Logo from "./Logo";
+
+function InstallButton() {
+  const [showInstall, setShowInstall] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleBeforeInstallPrompt = (e) => {
+      e.preventDefault();
+      setShowInstall(true);
+      window.deferredPrompt = e;
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  if (!showInstall) return null;
+
+  const handleInstall = async () => {
+    if (window.deferredPrompt) {
+      window.deferredPrompt.prompt();
+      const { outcome } = await window.deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      }
+      window.deferredPrompt = null;
+    }
+    setShowInstall(false);
+  };
+
+  return (
+    <Button 
+      onClick={handleInstall}
+      className="w-full bg-text-gradient rounded-[12px] text-whitish text-sm mt-4 h-[44px]"
+    >
+      Install App
+    </Button>
+  );
+}
 
 const GetStarted = () => {
   const { onGetStarted } = useOutletContext();
@@ -40,6 +82,7 @@ const GetStarted = () => {
             >
               Get Started
             </Button>
+            <InstallButton />
           </div>
         </div>
         <div className="lg:hidden absolute bottom-0 right-0">

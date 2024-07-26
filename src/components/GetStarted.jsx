@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import TopCurve from "./TopCurve";
 import { Button } from "./ui/button";
@@ -7,19 +7,20 @@ import BottomCurve from "./BottomCurve";
 import Logo from "./Logo";
 
 function InstallButton() {
-  const [showInstall, setShowInstall] = React.useState(false);
+  const [showInstall, setShowInstall] = useState(!!window.deferredPrompt);
 
-  React.useEffect(() => {
-    const handleBeforeInstallPrompt = (e) => {
-      e.preventDefault();
+  useEffect(() => {
+    const handleAppInstallable = () => setShowInstall(true);
+
+    window.addEventListener("appInstallable", handleAppInstallable);
+
+    // Check if the app is already installable
+    if (window.deferredPrompt) {
       setShowInstall(true);
-      window.deferredPrompt = e;
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    }
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener("appInstallable", handleAppInstallable);
     };
   }, []);
 
@@ -27,18 +28,13 @@ function InstallButton() {
 
   const handleInstall = async () => {
     if (window.deferredPrompt) {
-      window.deferredPrompt.prompt();
-      const { outcome } = await window.deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        console.log('User accepted the install prompt');
-      }
-      window.deferredPrompt = null;
+      await window.installPWA();
+      setShowInstall(false);
     }
-    setShowInstall(false);
   };
 
   return (
-    <Button 
+    <Button
       onClick={handleInstall}
       className="w-full bg-text-gradient rounded-[12px] text-whitish text-sm mt-4 h-[44px]"
     >

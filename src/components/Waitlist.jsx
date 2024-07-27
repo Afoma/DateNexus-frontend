@@ -91,7 +91,7 @@ const Waitlist = () => {
         <div className="lg:hidden fixed top-0 left-0 right-0">
           <TopCurve />
         </div>
-        <div className="w-[80%] h-[60%] md:h-auto md:px-[100px] md:py-[100px] flex flex-col gap-8">
+        <div className="w-[80%] h-[60%] md:h-[100%] md:px-[100px] md:py-[100px] flex flex-col gap-8">
           <div className="flex flex-col gap-4 items-center">
             <h3 className="text-2xl text-black font-semibold">
               Join the <span className="text-gradient-custom">Waitlist</span>

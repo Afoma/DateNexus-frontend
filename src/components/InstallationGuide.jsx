@@ -89,7 +89,8 @@ const InstallationGuide = () => {
                     Share icon at the top-right corner of the screen
                   </InstallationStep>
                   <InstallationStep number={2}>
-                    Select <img className="inline" src={Phone} alt="" /> Add to Home Screen
+                    Select <img className="inline" src={Phone} alt="" /> Add to
+                    Home Screen
                   </InstallationStep>
                 </TabsContent>
               </Tabs>

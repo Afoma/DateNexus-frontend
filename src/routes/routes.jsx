@@ -8,6 +8,8 @@ import OtpConfirmation from "@/components/OtpConfirmation";
 import Passkey from "@/components/Passkey";
 import CreateProfile from "@/components/CreateProfile";
 import WalletActions from "@/components/WalletActions";
+import InstallationGuide from "@/components/InstallationGuide";
+import Installation from "@/components/Installation";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <GetStarted /> },
       { path: "onboarding", element: <OnboardingScreen /> },
+      { path: "installation-guide", element: <InstallationGuide /> },
+      { path: "installation", element: <Installation /> },
       { path: "signin", element: <Signin /> },
       { path: "signup", element: <Signup /> },
       { path: "otp", element: <OtpConfirmation /> },

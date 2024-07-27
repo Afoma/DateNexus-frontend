@@ -4,20 +4,26 @@ import { Button } from "./ui/button";
 import TopCurveWhite from "./TopCurveWhite";
 import BottomCurve from "./BottomCurve";
 import Logo from "./Logo";
+import BottomCurveWhite from "./BottomCurveWhite";
 
 const GetStarted = () => {
   const { onGetStarted } = useOutletContext();
 
   return (
     <div className="h-screen grid lg:grid-cols-[550px_1fr] relative">
-      <div className="hidden lg:grid lg:min-h-screen lg:bg-custom-gradient">
-        <TopCurveWhite />
+      <div className="hidden relative lg:flex lg:flex-col lg:items-center lg:justify-center min-h-screen lg:bg-custom-gradient lg:min-h-0">
+        <div className="hidden lg:block absolute top-0 left-0 right-0">
+          <TopCurveWhite />
+        </div>
         <h3 className="text-white text-6xl text-center font-semibold">
           <span className="text-white_transparent text-4xl font-medium">
             Welcome to
           </span>{" "}
           DateNexus
         </h3>
+        <div className="hidden lg:block absolute bottom-0 right-0">
+          <BottomCurveWhite />
+        </div>
       </div>
       <div className="flex items-center justify-center min-h-screen lg:min-h-0">
         <div className="lg:hidden absolute top-0 left-0 right-0">

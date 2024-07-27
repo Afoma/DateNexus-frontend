@@ -91,7 +91,7 @@ const Installation = () => {
           </p>
         </div>
         <div className="flex flex-col items-center justify-center p-4">
-          <Card className="w-full relative rounded-[24px] bg-whitish">
+          <Card className="w-[300px] relative rounded-[24px] bg-whitish">
             <Button
               onClick={handleClose}
               className="absolute top-2 right-2 p-2"

@@ -31,6 +31,7 @@ const router = createBrowserRouter([
       { path: "wallet", element: <WalletActions /> },
       { path: "smartSignin", element: <SmartWalletSignIn /> },
       { path: "waitlist", element: <Waitlist /> },
+      
       { path: "thanks", element: <Thanks /> },
     ],
   },

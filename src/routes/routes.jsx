@@ -11,6 +11,8 @@ import WalletActions from "@/components/WalletActions";
 import InstallationGuide from "@/components/InstallationGuide";
 import Installation from "@/components/Installation";
 import SmartWalletSignIn from "@/components/SmartWalletSignIn";
+import Waitlist from "@/components/Waitlist";
+import Thanks from "@/components/Thanks";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,8 @@ const router = createBrowserRouter([
       { path: "createProfile", element: <CreateProfile /> },
       { path: "wallet", element: <WalletActions /> },
       { path: "smartSignin", element: <SmartWalletSignIn /> },
+      { path: "waitlist", element: <Waitlist /> },
+      { path: "thanks", element: <Thanks /> },
     ],
   },
 ]);

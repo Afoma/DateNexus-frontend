@@ -69,7 +69,7 @@ const GetStarted = () => {
                 <span className="text-black">DateN</span>exus
               </h3>
               <p className="text-custom-text-secondary text-sm text-center">
-                An on chain dating site for creatives
+                An On Chain Dating Site for Creatives
               </p>
             </div>
             <Button

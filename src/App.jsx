@@ -22,7 +22,7 @@ const App = () => {
   }, [location.pathname]);
 
   const handleLoadingComplete = () => setIsLoading(false);
-  const handleGetStarted = () => navigate("/onboarding");
+  const handleGetStarted = () => navigate("/installation-guide");
 
   return (
     <div className="min-h-screen font-sans">

@@ -10,6 +10,7 @@ import CreateProfile from "@/components/CreateProfile";
 import WalletActions from "@/components/WalletActions";
 import InstallationGuide from "@/components/InstallationGuide";
 import Installation from "@/components/Installation";
+import SmartWalletSignIn from "@/components/SmartWalletSignIn";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "createwallet", element: <Passkey /> },
       { path: "createProfile", element: <CreateProfile /> },
       { path: "wallet", element: <WalletActions /> },
+      { path: "smartSignin", element: <SmartWalletSignIn /> },
     ],
   },
 ]);

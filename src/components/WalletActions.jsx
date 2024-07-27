@@ -2,6 +2,7 @@ import TopCurve from "./TopCurve";
 import TopCurveWhite from "./TopCurveWhite";
 import Wallet from "@/assets/Wallet.svg";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 const WalletActions = () => {
   return (
@@ -36,9 +37,11 @@ const WalletActions = () => {
             <Button className="w-full bg-otp_grey text-gradient-custom rounded-[14px] h-[44px]">
               Explore Wallet
             </Button>
-            <Button variant="ghost" className="w-full">
-              Return to App
-            </Button>
+            <Link to="/smartSignin">
+              <Button variant="ghost" className="w-full">
+                Return to App
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

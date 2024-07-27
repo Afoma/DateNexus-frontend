@@ -1,47 +1,9 @@
-import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import TopCurve from "./TopCurve";
 import { Button } from "./ui/button";
 import TopCurveWhite from "./TopCurveWhite";
 import BottomCurve from "./BottomCurve";
 import Logo from "./Logo";
-
-function InstallButton() {
-  const [showInstall, setShowInstall] = useState(!!window.deferredPrompt);
-
-  useEffect(() => {
-    const handleAppInstallable = () => setShowInstall(true);
-
-    window.addEventListener("appInstallable", handleAppInstallable);
-
-    // Check if the app is already installable
-    if (window.deferredPrompt) {
-      setShowInstall(true);
-    }
-
-    return () => {
-      window.removeEventListener("appInstallable", handleAppInstallable);
-    };
-  }, []);
-
-  if (!showInstall) return null;
-
-  const handleInstall = async () => {
-    if (window.deferredPrompt) {
-      await window.installPWA();
-      setShowInstall(false);
-    }
-  };
-
-  return (
-    <Button
-      onClick={handleInstall}
-      className="w-full bg-text-gradient rounded-[12px] text-whitish text-sm mt-4 h-[44px]"
-    >
-      Install App
-    </Button>
-  );
-}
 
 const GetStarted = () => {
   const { onGetStarted } = useOutletContext();
@@ -78,7 +40,6 @@ const GetStarted = () => {
             >
               Get Started
             </Button>
-            <InstallButton />
           </div>
         </div>
         <div className="lg:hidden absolute bottom-0 right-0">

@@ -25,7 +25,7 @@ const InstallationGuide = () => {
   const navigate = useNavigate();
 
   const handleClose = () => {
-    navigate("/installation");
+    navigate("/app/installation");
   };
 
   return (

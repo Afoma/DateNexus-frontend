@@ -37,7 +37,7 @@ const WalletActions = () => {
             <Button className="w-full bg-otp_grey text-gradient-custom rounded-[14px] h-[44px]">
               Explore Wallet
             </Button>
-            <Link to="/smartSignin">
+            <Link to="/app/smartSignin">
               <Button variant="ghost" className="w-full">
                 Return to App
               </Button>

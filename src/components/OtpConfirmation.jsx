@@ -63,7 +63,7 @@ const OtpConfirmation = () => {
       })
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
-        navigate("/createProfile");
+        navigate("/app/createProfile");
         form.reset();
         setIsLoading(false);
       })

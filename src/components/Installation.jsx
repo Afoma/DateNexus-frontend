@@ -75,7 +75,7 @@ const Installation = () => {
   }, []);
 
   const handleClose = () => {
-    navigate("/onboarding");
+    navigate("/app/onboarding");
   };
 
   return (

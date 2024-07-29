@@ -54,7 +54,7 @@ const Signin = () => {
       })
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
-        navigate("/createProfile");
+        navigate("/app/createProfile");
         form.reset();
         setIsLoading(false);
       })
@@ -169,7 +169,7 @@ const Signin = () => {
             <span>OR</span>
             <img src={Line} alt="" />
           </div>
-          <Link to="/createwallet" className="w-full">
+          <Link to="/app/createwallet" className="w-full">
             <Button
               variant="outline"
               className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
@@ -177,7 +177,7 @@ const Signin = () => {
               Sign in with Passkey
             </Button>
           </Link>
-          <Link to="/signup">
+          <Link to="/app/signup">
             <Button variant="link" className="flex gap-1 w-full">
               Don't have an account?{" "}
               <span className="text-custom-pink">Sign up</span>

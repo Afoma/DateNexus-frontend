@@ -27,7 +27,7 @@ const Footer = () => {
   return (
     <div className="bg-custom-gradient font-sans px-10 py-[40px] mt-[40px]">
       <Brand />
-      <section className="text-white flex flex-col lg:flex-row lg:justify-between mt-[40px] lg:w-[1000px]">
+      <section className="text-white flex flex-col gap-10 lg:flex-row lg:justify-between mt-[40px] lg:w-[1000px]">
         <div>
           <h3 className="lg:text-2xl font-semibold">About DateNexus</h3>
           {about.map((item) => (
@@ -65,19 +65,21 @@ const Footer = () => {
           ))}
         </div>
       </section>
-      <section className="flex justify-center gap-8 py-8">
-        <Button className="bg-socials lg:w-[200px] py-6">
+      <section className="flex justify-start md:justify-center gap-8 py-8">
+        <Button className="bg-socials w-[91px] lg:w-[200px] py-6">
           <img src={Twitter} alt="Twitter Icon" />
         </Button>
-        <Button className="bg-socials lg:w-[200px] py-6">
-          <img src={LinkedIn} alt="Twitter Icon" />
+        <Button className="bg-socials w-[91px] lg:w-[200px] py-6">
+          <img src={LinkedIn} alt="LinkedIn Icon" />
         </Button>
       </section>
       <div className="flex justify-center">
         <section className="border-t border-solid border-white lg:w-[600px]">
-          <div className="mt-2 flex gap-2 text-white">
+          <div className="mt-2 flex items-center gap-2 text-white">
             <img src={Copyright} alt="" />
-            <p>{currentYear} DateNexus. All rights reserved.</p>
+            <p className="text-xs sm:text-sm">
+              {currentYear} DateNexus. All rights reserved.
+            </p>
           </div>
         </section>
       </div>

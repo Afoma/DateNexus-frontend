@@ -48,18 +48,18 @@ const LandingPage = () => {
       <section>
         <NavBar />
       </section>
-      <div className="lg:px-10">
+      <div className="px-6 lg:px-10">
         <section>
           <div className="py-[40px]">
             <Logo />
           </div>
           <div className="flex flex-col gap-4 items-center">
-            <h3 className="lg:text-4xl text-grey font-semibold">
+            <h3 className="text-sm lg:text-4xl text-grey font-semibold">
               Welcome to <span className="text-gradient-custom">DateNexus</span>
             </h3>
             <Text
               heading="An Onchain Dating App For People in Tech"
-              size="lg:text-7xl"
+              size="text-4xl lg:text-7xl"
             >
               Introducing DateNexus - the best onchain dating app created to
               offer a refined dating experience for people that value
@@ -70,7 +70,7 @@ const LandingPage = () => {
         <section className="flex justify-center py-[40px]">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
-              className="w-[400px] bg-custom-gradient h-[56px] rounded-[12px]"
+              className="w-full md:w-[400px] bg-custom-gradient h-[56px] rounded-[12px]"
               onClick={scrollToWaitlist}
             >
               Join The Waitlist Today
@@ -81,7 +81,7 @@ const LandingPage = () => {
           <Features />
         </section>
         <section className="flex justify-center py-[40px]">
-          <div className="relative bg-pattern lg:w-[420px] h-[400px] rounded-[24px] flex justify-center">
+          <div className="relative bg-pattern w-[280px] md:w-[400px] lg:w-[420px] h-[400px] rounded-[24px] flex justify-center">
             <img
               className="w-[186px] absolute -top-[100px]"
               src={ScreenSplash}

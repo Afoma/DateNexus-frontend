@@ -4,10 +4,10 @@ import { cn } from "@/lib/utils";
 const Text = ({heading, children, size}) => {
   return (
     <>
-      <h3 className={cn(`text-gradient-custom font-bold text-center lg:leading-none lg:w-[900px]`, size)}>
+      <h3 className={cn(`text-gradient-custom font-bold text-center lg:leading-none w-full md:w-[600px] lg:w-[900px]`, size)}>
         {heading}
       </h3>
-      <p className="text-custom-text-secondary lg:text-xl text-center lg:w-[800px]">
+      <p className="text-custom-text-secondary text-sm md:text-xl text-center w-full md:w-[500px] lg:w-[800px]">
         {children}
       </p>
     </>

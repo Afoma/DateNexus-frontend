@@ -72,17 +72,17 @@ const Waitlist = () => {
   return (
     <div>
       <Toaster />
-      <div className="flex flex-col gap-8 w-[650px] justify-between items-center">
+      <div className="flex flex-col gap-8 w-auto lg:w-[650px] justify-between items-center">
         <div className="flex flex-col gap-4 items-center">
-          <h3 className="text-5xl text-gradient-custom font-semibold">
+          <h3 className="text-3xl md:text-5xl text-gradient-custom font-semibold text-center">
             Join the Waitlist
-          </h3>
-          <p className="text-custom-text-secondary text-xl text-center">
+          </h3> 
+          <p className="text-custom-text-secondary text-xl text-center sm:text-balance">
             Be first to join DateNexus and connect with a network of like-minded
             individuals.
           </p>
         </div>
-        <div className="w-[400px]">
+        <div className="w-auto md:w-[400px]">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}

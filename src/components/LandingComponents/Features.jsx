@@ -27,27 +27,27 @@ const Features = () => {
   ];
   return (
     <div className="flex flex-col gap-6 items-center font-sans">
-      <Text heading="Features Of DateNexus" size="lg:text-5xl">
+      <Text heading="Features Of DateNexus" size="text-4xl lg:text-5xl">
         Introducing DateNexus- the best onchain dating app created to offer a
         refined dating experience for people that value intellectual
         compatibility.
       </Text>
-      <div className="mt-10 flex flex-col lg:flex-row lg:gap-8">
+      <div className="mt-10 flex flex-col lg:flex-row gap-8">
         {features.map((feature) => (
           <Card
             key={feature.id}
-            className="bg-transparent p-0 m-0 border-none shadow-none rounded-none"
+            className="bg-transparent p-0 m-0 border-none shadow-none rounded-none w-[280px] md:w-[300px] lg:w-auto"
           >
             <CardHeader className="bg-pattern flex justify-center p-0 lg:h-[400px] rounded-[24px]">
               <div className="flex justify-center items-end h-full">
-                <img className="w-[186px]" src={feature.img} alt="" />
+                <img className="w-[186px] pt-14 lg:pt-0" src={feature.img} alt="" />
               </div>
             </CardHeader>
             <CardContent className="px-0 py-6 m-0 flex flex-col gap-4">
-              <h3 className="text-gradient-custom text-xl w-[300px]">
+              <h3 className="text-gradient-custom text-xl lg:w-[300px]">
                 {feature.heading}
               </h3>
-              <p className="text-custom-text-secondary w-[380px] text-base">
+              <p className="text-custom-text-secondary lg:w-[300px] xl:w-[380px] text-base">
                 {feature.text}
               </p>
             </CardContent>

@@ -43,7 +43,7 @@ const SmartWalletSignIn = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      navigate("/verify");
+      navigate("/app/verify");
     }, 5000);
   };
 
@@ -104,7 +104,7 @@ const SmartWalletSignIn = () => {
           <span>OR</span>
           <img src={Line} alt="" />
         </div>
-        <Link to="/createwallet" className="w-full">
+        <Link to="/app/createwallet" className="w-full">
           <Button
             variant="outline"
             className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"

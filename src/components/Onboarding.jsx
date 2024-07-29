@@ -39,12 +39,12 @@ const OnboardingScreen = () => {
     if (currentScreen < screens.length - 1) {
       setCurrentScreen(currentScreen + 1);
     } else {
-      navigate("/signin");
+      navigate("/app/signin");
     }
   };
 
   const handleSkip = () => {
-    navigate("/signin");
+    navigate("/app/signin");
   };
 
   const swipeHandlers = useSwipeable({

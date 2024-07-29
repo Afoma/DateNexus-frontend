@@ -29,7 +29,7 @@ const Passkey = () => {
 
   const handleContinue = () => {
     setShowModal(false);
-    navigate("/wallet");
+    navigate("/app/wallet");
   };
 
   return (

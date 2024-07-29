@@ -66,7 +66,7 @@ const Signup = () => {
       .then(() => {
         localStorage.setItem("userEmail", values.email);
         localStorage.setItem("tempPassword", values.password);
-        navigate("/otp");
+        navigate("/app/otp");
         form.reset();
         setIsLoading(false);
       })
@@ -219,7 +219,7 @@ const Signup = () => {
             <img src={Line} alt="" />
           </div>
           <div className="flex flex-col gap-2 mb-10 lg:mb-0">
-            <Link to="/createwallet" className="w-full">
+            <Link to="/app/createwallet" className="w-full">
               <Button
                 variant="outline"
                 className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
@@ -227,7 +227,7 @@ const Signup = () => {
                 Sign in with Passkey
               </Button>
             </Link>
-            <Link to="/signup">
+            <Link to="/app/signin">
               <Button variant="link" className="flex gap-1 w-full h-auto p-0">
                 Already have an account?{" "}
                 <span className="text-custom-pink">Sign in</span>

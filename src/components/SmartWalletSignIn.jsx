@@ -18,10 +18,10 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { PuffLoader } from "react-spinners";
 //import axiosInstance from "@/services/api-client";
 //import toast from "react-hot-toast";
 //import { Toaster } from "react-hot-toast";
-import { PuffLoader } from "react-spinners";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -49,7 +49,7 @@ const SmartWalletSignIn = () => {
 
   return (
     <Layouts>
-      <div className="px-6 md:px-[170px] md:py-[100px] flex flex-col gap-8">
+      <div className="h-full px-8 md:px-[100px] flex flex-col justify-between my-[120px] lg:my-[50px]">
         <div className="grid gap-2">
           <h3 className="font-semibold text-custom-black text-base">
             Sign in to your{" "}
@@ -104,7 +104,7 @@ const SmartWalletSignIn = () => {
           <span>OR</span>
           <img src={Line} alt="" />
         </div>
-        <Link to="/app/createwallet" className="w-full">
+        <Link to="/app/verify" className="w-full">
           <Button
             variant="outline"
             className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"

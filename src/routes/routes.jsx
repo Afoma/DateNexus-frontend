@@ -15,6 +15,8 @@ import Waitlist from "@/components/Waitlist";
 import Thanks from "@/components/Thanks";
 import LandingPage from "@/pages/LandingPage";
 import Verify from "@/components/Verify";
+import Review from "@/components/Review";
+import Farcaster from "@/components/Farcaster";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,8 @@ const router = createBrowserRouter([
       { path: "wallet", element: <WalletActions /> },
       { path: "smartSignin", element: <SmartWalletSignIn /> },
       { path: "verify", element: <Verify /> },
+      { path: "review", element: <Review /> },
+      { path: "farcaster", element: <Farcaster /> },
       { path: "waitlist", element: <Waitlist /> },
       { path: "thanks", element: <Thanks /> },
     ],

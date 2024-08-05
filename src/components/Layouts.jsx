@@ -6,7 +6,7 @@ import BottomCurveWhite from "./BottomCurveWhite";
 
 const Layouts = ({ children }) => {
   return (
-    <div className="h-screen grid lg:grid-cols-[550px_1fr] relative">
+    <div className="h-screen grid lg:grid-cols-[550px_1fr] relative font-sans">
       <div className="hidden relative lg:flex lg:flex-col lg:items-center lg:justify-center min-h-screen lg:bg-custom-gradient lg:min-h-0">
         <div className="hidden lg:block absolute top-0 left-0 right-0">
           <TopCurveWhite />
@@ -25,7 +25,7 @@ const Layouts = ({ children }) => {
         <div className="lg:hidden absolute top-0 left-0 right-0">
           <TopCurve />
         </div>
-        <div className="md:px-[170px] py-20 lg:py-0 flex flex-col items-center justify-center z-10">
+        <div className=" h-full lg:py-0 flex flex-col items-center justify-center z-10">
           {children}
         </div>
         <div className="lg:hidden absolute bottom-0 right-0">

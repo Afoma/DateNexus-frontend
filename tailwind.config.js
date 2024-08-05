@@ -48,7 +48,7 @@ export default {
         },
         "custom-pink": "#F83E67",
         "custom-red": "#A50946",
-        "custom-text-secondary": "#A3A3A3",
+        "custom-text-secondary": "#6E6E6E",
         "custom-black": "#383838",
         "input-bg": "#F5F6F8",
         grey: "#D9D9D9",

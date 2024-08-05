@@ -64,3 +64,28 @@
   background-clip: text;
   color: transparent;
 }
+
+/* Override autocomplete styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #fff inset !important; /* Change white to your desired background color */
+  -webkit-text-fill-color: #383838 !important; /* Change #333 to your desired text color */
+}
+
+/* For non-WebKit browsers */
+input:autofill,
+input:autofill:hover,
+input:autofill:focus,
+input:autofill:active {
+  box-shadow: 0 0 0 30px #fff inset !important; /* Change white to your desired background color */
+  -webkit-text-fill-color: #383838 !important; /* Change #333 to your desired text color */
+}
+
+/* Add this to your CSS file */
+.desktop-image {
+  max-height: 90vh; /* This makes the image take up to 90% of the viewport height */
+  width: auto;
+  max-width: 100%;
+}

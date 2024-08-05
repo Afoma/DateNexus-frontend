@@ -218,7 +218,7 @@ const Signup = () => {
             <span>OR</span>
             <img src={Line} alt="" />
           </div>
-          <div className="flex flex-col gap-2 mb-10 lg:mb-0">
+          <div className="flex flex-col gap-2 mb-4 lg:mb-0">
             <Link to="/app/createwallet" className="w-full">
               <Button
                 variant="outline"

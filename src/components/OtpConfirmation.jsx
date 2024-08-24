@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import { PuffLoader } from "react-spinners";
+import BottomCurveWhite from "./BottomCurveWhite";
 
 const FormSchema = z.object({
   pin: z.string().min(6, {
@@ -56,56 +57,95 @@ const OtpConfirmation = () => {
 
   const onSubmit = (values) => {
     setIsLoading(true);
-    axiosInstance
-      .patch("/auth/signup", {
-        email: email,
-        otp: values.pin,
-      })
-      .then((res) => {
-        localStorage.setItem("jwt", res.data.token);
-        navigate("/app/createProfile");
-        form.reset();
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-        setIsLoading(false);
-      });
+    if (localStorage.getItem("resendForgot")) {
+      axiosInstance
+        .patch("/auth/forgot-password", {
+          email: localStorage.getItem("email", email),
+          otp: values.pin,
+        })
+        .then((res) => {
+          localStorage.setItem("jwt", res.data.token);
+          localStorage.removeItem("resendForgot");
+          navigate("/app/new-password");
+          form.reset();
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+          setIsLoading(false);
+        });
+    } else {
+      axiosInstance
+        .patch("/auth/signup", {
+          email: email,
+          otp: values.pin,
+        })
+        .then((res) => {
+          localStorage.setItem("jwt", res.data.token);
+          navigate("/app/createProfile");
+          form.reset();
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+          setIsLoading(false);
+        });
+    }
   };
 
   const handleResendCode = async () => {
     if (isResending || cooldown > 0) return;
 
     setIsResending(true);
-    try {
-      await axiosInstance.post("/auth/signup", {
-        email: email,
-        password: localStorage.getItem("tempPassword"),
-        passwordConfirm: localStorage.getItem("tempPassword"),
-      });
-      toast.success("New OTP sent successfully");
-      setCooldown(60); // Set a 60-second cooldown
-    } catch (error) {
-      console.error("Failed to resend OTP", error);
-      toast.error(error.response?.data?.message || "Failed to resend OTP");
-    } finally {
-      setIsResending(false);
-      localStorage.removeItem("tempPassword");
-      localStorage.removeItem("userEmail");
+    if (localStorage.getItem("resendForgot")) {
+      try {
+        await axiosInstance.post("/auth/forgot-password", {
+          email: localStorage.getItem("email"),
+        });
+        toast.success("New OTP sent successfully");
+        setCooldown(60); // Set a 60-second cooldown
+      } catch (error) {
+        console.error("Failed to resend OTP", error);
+        toast.error(error.response?.data?.message || "Failed to resend OTP");
+      } finally {
+        setIsResending(false);
+      }
+    } else {
+      try {
+        await axiosInstance.post("/auth/signup", {
+          email: email,
+          password: localStorage.getItem("tempPassword"),
+          passwordConfirm: localStorage.getItem("tempPassword"),
+        });
+        toast.success("New OTP sent successfully");
+        setCooldown(60); // Set a 60-second cooldown
+      } catch (error) {
+        console.error("Failed to resend OTP", error);
+        toast.error(error.response?.data?.message || "Failed to resend OTP");
+      } finally {
+        setIsResending(false);
+        localStorage.removeItem("tempPassword");
+        localStorage.removeItem("userEmail");
+      }
     }
   };
 
   return (
-    <div className="h-screen grid lg:grid-cols-[550px_1fr]">
+    <div className="h-screen grid lg:grid-cols-[550px_1fr] relative font-sans">
       <Toaster />
-      <div className="hidden lg:grid lg:min-h-screen lg:bg-custom-gradient">
-        <TopCurveWhite />
-        <h3 className=" text-white text-6xl text-center font-semibold">
+      <div className="hidden relative lg:flex lg:flex-col lg:items-center lg:justify-center min-h-screen lg:bg-custom-gradient lg:min-h-0">
+        <div className="hidden lg:block absolute top-0 left-0 right-0">
+          <TopCurveWhite />
+        </div>
+        <h3 className="text-white text-6xl text-center font-semibold">
           <span className="text-white_transparent text-4xl font-medium">
             Welcome to
           </span>{" "}
           DateNexus
         </h3>
+        <div className="hidden lg:block absolute bottom-0 right-0">
+          <BottomCurveWhite />
+        </div>
       </div>
       <div className="flex items-center justify-center min-h-screen lg:min-h-0">
         <div className="lg:hidden absolute top-0 left-0 right-0">

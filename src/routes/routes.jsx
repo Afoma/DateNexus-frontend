@@ -17,6 +17,8 @@ import LandingPage from "@/pages/LandingPage";
 import Verify from "@/components/Verify";
 import Review from "@/components/Review";
 import Farcaster from "@/components/Farcaster";
+import ForgotPassword from "@/components/ForgotPassword";
+import NewPassword from "@/components/NewPassword";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,8 @@ const router = createBrowserRouter([
       { path: "installation", element: <Installation /> },
       { path: "signin", element: <Signin /> },
       { path: "signup", element: <Signup /> },
+      { path: "forgot-password", element: <ForgotPassword /> },
+      { path: "new-password", element: <NewPassword /> },
       { path: "otp", element: <OtpConfirmation /> },
       { path: "createwallet", element: <Passkey /> },
       { path: "createProfile", element: <CreateProfile /> },

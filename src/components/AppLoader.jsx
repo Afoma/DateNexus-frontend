@@ -6,7 +6,7 @@ import Brand from "./Brand";
 
 const AppLoader = ({ onLoadingComplete }) => {
   useEffect(() => {
-    const timer = setTimeout(onLoadingComplete, 5000);
+    const timer = setTimeout(onLoadingComplete, 2000);
     return () => clearTimeout(timer);
   }, []);
 

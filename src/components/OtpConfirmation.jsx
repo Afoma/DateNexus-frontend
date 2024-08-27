@@ -151,7 +151,7 @@ const OtpConfirmation = () => {
         <div className="lg:hidden absolute top-0 left-0 right-0">
           <TopCurve />
         </div>
-        <div className="px-6 flex flex-col gap-12 md:py-[100px] md:px-[170px]">
+        <div className="px-6 flex flex-col gap-12 md:py-[100px] md:px-[170px] lg:px-0">
           <h3 className="font-semibold text-black text-xl w-[254px]">
             Please check your
             <span className="text-gradient-custom"> email for a code</span>

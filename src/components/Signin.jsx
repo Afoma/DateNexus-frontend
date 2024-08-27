@@ -86,7 +86,7 @@ const Signin = () => {
         <div className="lg:hidden fixed top-0 left-0 right-0">
           <TopCurve />
         </div>
-        <div className="px-6 md:px-[170px] md:py-[100px] flex flex-col gap-8">
+        <div className="px-6 md:px-[170px] lg:px-0 md:py-[100px] flex flex-col gap-8">
           <div className="grid gap-2">
             <h3 className="font-semibold text-black text-base">
               Sign <span className="text-custom-pink">In</span>

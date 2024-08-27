@@ -25,7 +25,7 @@ const FormSchema = z.object({
     .string()
     .min(3, { message: "Name must contain at least 3 characters" }),
   email: z.string().email(),
-  privacyPolicy: z.boolean().default(false),
+  // privacyPolicy: z.boolean().default(false),
 });
 
 const Waitlist = () => {
@@ -33,41 +33,10 @@ const Waitlist = () => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      name: "",
       email: "",
-      password: "",
     },
   });
-
-  // const onSubmit = (values) => {
-  //   setIsLoading(true);
-
-  //   const payload = {
-  //     email: values.email,
-  //     name: values.name,
-  //     privacyPolicy: `${values.privacyPolicy}`,
-  //   };
-
-  //   base(import.meta.env.VITE_WAITLIST_AIRTABLE_TABLE).create(
-  //     [
-  //       {
-  //         fields: payload,
-  //       },
-  //     ],
-  //     function (err, records) {
-  //       if (err) {
-  //         console.error(err);
-  //         toast.error("Something went wrong, Try Again.");
-  //         setIsLoading(false);
-  //         return;
-  //       }
-  //       records?.forEach(function () {
-  //         //reset();
-  //       });
-  //       setIsLoading(false);
-  //       toast.success("Application submitted successfully.");
-  //     }
-  //   );
-  // };
 
   const onSubmit = (values) => {
     setIsLoading(true);
@@ -79,11 +48,12 @@ const Waitlist = () => {
       .then(() => {
         toast.success("Application submitted successfully.");
         form.reset();
+        form.setValue("name", "");
+        form.setValue("email", "");
         setIsLoading(false);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
-        form.reset();
         setIsLoading(false);
       });
   };

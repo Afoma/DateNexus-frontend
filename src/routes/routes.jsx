@@ -6,7 +6,7 @@ import Signin from "@/components/Signin";
 import Signup from "@/components/Signup";
 import OtpConfirmation from "@/components/OtpConfirmation";
 import Passkey from "@/components/Passkey";
-import CreateProfile from "@/components/CreateProfile";
+import CreateProfile from "@/components/profile/CreateProfile";
 import WalletActions from "@/components/WalletActions";
 
 const router = createBrowserRouter([

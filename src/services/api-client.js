@@ -26,8 +26,7 @@ axiosInstance.interceptors.response.use(
     if (axios.isAxiosError(error)) {
       if (
         error.response?.status === 401 ||
-        error.response?.status === 403 ||
-        error.response?.status === 500
+        error.response?.status === 403
       ) {
         localStorage.clear();
         router.navigate("/signin", { replace: true });

@@ -13,8 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Line from "@/assets/Line.svg";
-import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import TopCurveWhite from "./TopCurveWhite";
@@ -29,7 +27,6 @@ import BottomCurveWhite from "./BottomCurveWhite";
 
 const FormSchema = z
   .object({
-    email: z.string().email(),
     password: z
       .string()
       .min(7, { message: "Password must be more than 7 characters" }),
@@ -42,7 +39,7 @@ const FormSchema = z
     path: ["passwordConfirm"],
   });
 
-const Signup = () => {
+const NewPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -50,7 +47,6 @@ const Signup = () => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: "",
       password: "",
       passwordConfirm: "",
     },
@@ -59,15 +55,13 @@ const Signup = () => {
   const onSubmit = (values) => {
     setIsLoading(true);
     axiosInstance
-      .post("/auth/signup", {
-        email: values.email,
+      .patch("/auth/reset-password", {
         password: values.password,
         passwordConfirm: values.passwordConfirm,
       })
       .then(() => {
-        localStorage.setItem("userEmail", values.email);
-        localStorage.setItem("tempPassword", values.password);
-        navigate("/app/otp");
+        toast.success("Password updated");
+        navigate("/app/createProfile");
         form.reset();
         setIsLoading(false);
       })
@@ -98,43 +92,19 @@ const Signup = () => {
         <div className="lg:hidden fixed top-0 left-0 right-0">
           <TopCurve />
         </div>
-        <div className="px-6 md:px-[170px] lg:px-0 md:py-[100px] flex flex-col gap-8">
+        <div className="w-[90%] md:py-[100px] flex flex-col gap-8">
           <div className="grid gap-2">
             <h3 className="font-semibold text-black text-base">
-              Sign <span className="text-custom-pink">Up</span>
+              Reset <span className="text-gradient-custom">Password</span>
             </h3>
             <div className="flex flex-col gap-2">
-              <h3 className="text-4xl text-gradient-custom font-semibold">
-                <span className="text-black">DateN</span>exus
-              </h3>
               <p className="text-custom-text-secondary text-sm">
-                Find Love Onchain
+                Please create a new password.
               </p>
             </div>
           </div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-custom-black text-sm">
-                      Email
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        className={cn(
-                          "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px] bg-input-bg text-custom-black"
-                        )}
-                        placeholder="Enter your email address"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="password"
@@ -211,7 +181,7 @@ const Signup = () => {
                 type="submit"
                 className="w-full bg-custom-gradient h-[44px] rounded-[12px]"
               >
-                    {isLoading ? (
+                {isLoading ? (
                   <PuffLoader color="#ffffff" size={24} />
                 ) : (
                   "Continue"
@@ -219,27 +189,6 @@ const Signup = () => {
               </Button>
             </form>
           </Form>
-          <div className="flex gap-2 justify-center">
-            <img src={Line} alt="" />
-            <span>OR</span>
-            <img src={Line} alt="" />
-          </div>
-          <div className="flex flex-col gap-2 mb-4 lg:mb-0">
-            <Link to="/app/createwallet" className="w-full">
-              <Button
-                variant="outline"
-                className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
-              >
-                Sign in with Passkey
-              </Button>
-            </Link>
-            <Link to="/app/signin">
-              <Button variant="link" className="flex gap-1 w-full h-auto p-0">
-                Already have an account?{" "}
-                <span className="text-custom-pink">Sign in</span>
-              </Button>
-            </Link>
-          </div>
         </div>
         <div className="lg:hidden fixed bottom-0 right-0">
           <BottomCurve />
@@ -249,4 +198,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default NewPassword;

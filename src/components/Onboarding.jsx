@@ -3,9 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import Boarding1 from "@/assets/onBoarding1.svg";
-import Boarding2 from "@/assets/onBoarding2.svg";
-import Boarding3 from "@/assets/onBoarding3.svg";
+import Boarding1Mobile from "@/assets/onBoarding1.svg";
+import Boarding2Mobile from "@/assets/onBoarding2.svg";
+import Boarding3Mobile from "@/assets/onBoarding3.svg";
+import Boarding1Desktop from "@/assets/onboard1.svg";
+import Boarding2Desktop from "@/assets/onboard2.png";
+import Boarding3Desktop from "@/assets/onboard3.svg";
 
 const OnboardingScreen = () => {
   const [currentScreen, setCurrentScreen] = useState(0);
@@ -17,21 +20,24 @@ const OnboardingScreen = () => {
       subtitle: "People in Your Field.",
       description:
         "Expand Your Professional Circle and Discover New Opportunities",
-      image: Boarding1,
+      imageMobile: Boarding1Mobile,
+      imageDesktop: Boarding1Desktop,
     },
     {
       title: "Engage with Your",
       subtitle: "Ideal Matches.",
       description:
         "Start Meaningful Conversations and Build Lasting Connections",
-      image: Boarding2,
+      imageMobile: Boarding2Mobile,
+      imageDesktop: Boarding2Desktop,
     },
     {
       title: "Interact And Connect",
       subtitle: "Message And Call.",
       description:
         "Communicate Easily and Build Stronger Connections Through Conversations",
-      image: Boarding3,
+      imageMobile: Boarding3Mobile,
+      imageDesktop: Boarding3Desktop,
     },
   ];
 
@@ -39,12 +45,12 @@ const OnboardingScreen = () => {
     if (currentScreen < screens.length - 1) {
       setCurrentScreen(currentScreen + 1);
     } else {
-      navigate("/signin");
+      navigate("/app/signin");
     }
   };
 
   const handleSkip = () => {
-    navigate("/signin");
+    navigate("/app/signin");
   };
 
   const swipeHandlers = useSwipeable({
@@ -81,11 +87,17 @@ const OnboardingScreen = () => {
               }}
               className="w-full h-full"
             >
-              <img
-                src={screens[currentScreen].image}
-                alt="Onboarding"
-                className="w-full h-full object-cover relative"
-              />
+              <picture>
+                <source
+                  media="(min-width: 768px)"
+                  srcSet={screens[currentScreen].imageDesktop}
+                />
+                <img
+                  src={screens[currentScreen].imageMobile}
+                  alt="Onboarding"
+                  className="w-full h-full object-cover relative"
+                />
+              </picture>
             </motion.div>
           </AnimatePresence>
         </div>

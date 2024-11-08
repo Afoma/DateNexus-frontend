@@ -19,6 +19,8 @@ import Review from "@/components/Review";
 import Farcaster from "@/components/Farcaster";
 import ForgotPassword from "@/components/ForgotPassword";
 import NewPassword from "@/components/NewPassword";
+import Explore from "@/pages/Explore";
+import Discover from "@/pages/Discover";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,8 @@ const router = createBrowserRouter([
       { path: "farcaster", element: <Farcaster /> },
       { path: "waitlist", element: <Waitlist /> },
       { path: "thanks", element: <Thanks /> },
+      { path: "explore", element: <Explore /> },
+      { path: "discover", element: <Discover /> },
     ],
   },
 ]);

@@ -61,7 +61,7 @@ export default {
         "custom-gradient":
           "linear-gradient(178deg, #F83E67 -11.64%, #A50976 81.11%)",
         "text-gradient": "linear-gradient(90deg, #F83E67 0%, #A50976 100%)",
-        'pattern': "url('@/assets/pattern.svg')",
+        pattern: "url('@/assets/pattern.svg')",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],

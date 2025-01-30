@@ -53,8 +53,8 @@ const BottomNavigation = () => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center px-4 lg:px-0 pb-4">
-      <nav className="w-full flex justify-around items-center h-16 bg-custom-pink border-t border-gray-200 lg:w-[600px] lg:rounded-full lg:border lg:border-gray-200/20 lg:shadow-lg lg:shadow-black/5 lg:backdrop-blur-md lg:bg-custom-pink/90 transition-all duration-300 ease-in-out hover:lg:shadow-xl">
+    <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center px-4 lg:px-0 pb-4 rounded-xl">
+      <nav className="w-full flex justify-around items-center h-16 bg-custom-pink border-t border-gray-200 lg:w-[600px] lg:rounded-full lg:border lg:border-gray-200/20 lg:shadow-lg lg:shadow-black/5 lg:backdrop-blur-md lg:bg-custom-pink/90 transition-all duration-300 ease-in-out hover:lg:shadow-xl rounded-xl">
         {menuItems.map(({ id, icon, activeIcon, label, path }) => (
           <NavLink
             key={id}

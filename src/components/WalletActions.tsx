@@ -1,7 +1,7 @@
 import Wallet from "@/assets/Wallet.svg";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import Layouts from "./Layouts";
+import Layouts from "./layouts/NoAuthLayout";
 
 const WalletActions = () => {
   return (

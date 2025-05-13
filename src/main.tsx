@@ -1,23 +1,31 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import * as React from "react";
+import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import router from "./routes/routes";
 
-// Create a custom event for app installability
+declare global {
+  interface Window {
+    appInstallEvent: Event;
+    deferredPrompt: any; 
+    installPWA: () => Promise<void>;
+  }
+}
+
 window.appInstallEvent = new Event('appInstallable');
 
-// Make deferredPrompt a global variable
 window.deferredPrompt = null;
 
-window.addEventListener('beforeinstallprompt', (e) => {
+window.addEventListener('beforeinstallprompt', (e: Event) => {
   e.preventDefault();
   window.deferredPrompt = e;
-  // Dispatch the custom event
   window.dispatchEvent(window.appInstallEvent);
 });
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+if (!rootElement) throw new Error("Failed to find the root element");
+
+createRoot(rootElement).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
@@ -37,7 +45,7 @@ if ("serviceWorker" in navigator) {
 }
 
 // Function to trigger installation
-window.installPWA = async () => {
+window.installPWA = async (): Promise<void> => {
   if (window.deferredPrompt) {
     window.deferredPrompt.prompt();
     const { outcome } = await window.deferredPrompt.userChoice;

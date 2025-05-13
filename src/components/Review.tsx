@@ -1,4 +1,4 @@
-import Layouts from "./Layouts";
+import Layouts from "./layouts/NoAuthLayout";
 import SmallerLogo from "@/assets/SmallerLogo.png";
 import { PuffLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";

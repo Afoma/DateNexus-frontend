@@ -2,7 +2,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
-  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     container: {
       center: true,
@@ -87,5 +87,17 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }) {
+      addUtilities({
+        ".border-gradient": {
+          borderStyle: "solid",
+          borderWidth: "1.5px",
+          borderImageSlice: "1",
+          borderImageSource: "linear-gradient(90deg, #F83E67 0%, #A50976 100%)",
+        },
+      });
+    },
+  ],
 };

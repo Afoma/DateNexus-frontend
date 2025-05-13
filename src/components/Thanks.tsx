@@ -1,4 +1,4 @@
-import Layouts from "./Layouts";
+import Layouts from "./layouts/NoAuthLayout";
 import Logo from "./Logo";
 
 const Thanks = () => {
@@ -6,7 +6,9 @@ const Thanks = () => {
     <Layouts>
       <div className="flex flex-col justify-center items-center px-6">
         <Logo />
-        <h3 className="text-center text-gradient-custom text-2xl lg:text-4xl font-medium">Thank you, you will hear from us soon!</h3>
+        <h3 className="text-center text-gradient-custom text-2xl lg:text-4xl font-medium">
+          Thank you, you will hear from us soon!
+        </h3>
       </div>
     </Layouts>
   );

@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { ChevronUp } from "lucide-react";
 
-export default function SwipeIndicator({ onClick }) {
+export default function SwipeIndicator({ onClick }: {onClick: any}) {
   return (
     <button
       onClick={onClick}

@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
-import TopCurve from "./TopCurve";
-import TopCurveWhite from "./TopCurveWhite";
-import BottomCurve from "./BottomCurve";
-import BottomCurveWhite from "./BottomCurveWhite";
+import TopCurve from "../TopCurve";
+import TopCurveWhite from "../TopCurveWhite";
+import BottomCurve from "../BottomCurve";
+import BottomCurveWhite from "../BottomCurveWhite";
 
-const Layouts = ({ children }) => {
+const Layouts = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-screen grid lg:grid-cols-[550px_1fr] relative font-sans">
       <div className="hidden relative lg:flex lg:flex-col lg:items-center lg:justify-center min-h-screen lg:bg-custom-gradient lg:min-h-0">

@@ -21,6 +21,7 @@ import ForgotPassword from "@/components/ForgotPassword";
 import NewPassword from "@/components/NewPassword";
 import Explore from "@/pages/Explore";
 import Discover from "@/pages/Discover";
+import CommunityChatDemo from "@/pages/CommunityChat";
 
 const router = createBrowserRouter([
   {
@@ -49,8 +50,9 @@ const router = createBrowserRouter([
       { path: "farcaster", element: <Farcaster /> },
       { path: "waitlist", element: <Waitlist /> },
       { path: "thanks", element: <Thanks /> },
-      { path: "explore", element: <Explore /> },
       { path: "discover", element: <Discover /> },
+      { path: "explore", element: <Explore /> },
+      { path: "explore/chat", element: <CommunityChatDemo /> },
     ],
   },
 ]);

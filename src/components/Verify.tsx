@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Layouts from "./Layouts";
+import Layouts from "./layouts/NoAuthLayout";
 import Logo from "./Logo";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardTitle } from "./ui/card";

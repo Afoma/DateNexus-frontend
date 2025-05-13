@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import Layouts from "./Layouts";
+import Layouts from "./layouts/NoAuthLayout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

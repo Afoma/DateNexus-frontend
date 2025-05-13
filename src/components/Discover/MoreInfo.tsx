@@ -1,9 +1,7 @@
-import React from "react";
-import Location from "@/assets/discover/location.svg";
-import Age from "@/assets/discover/age.svg";
-import Gender from "@/assets/discover/gender.svg";
+import { Profile } from "types";
 
-export default function MoreInfo({ data, onClose }) {
+
+export default function MoreInfo({ data }: {data: Profile, }) {
   return (
     <div className="w-full">
       <div className="relative h-full overflow-y-auto">
@@ -43,19 +41,19 @@ export default function MoreInfo({ data, onClose }) {
           <section className="bg-white rounded-2xl p-6">
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 text-[#383838] text-md">
               <div className="flex items-center space-x-3">
-                <img src={Age} className="h-5 w-5" alt="age" />
+                <img src="/assets/discover/age.svg" className="h-5 w-5" alt="age" />
                 <div>
                   <p className="">{data.essentials.age} years</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
-                <img src={Gender} className="h-5 w-5" alt="gender" />
+                <img src="/assets/discover/gender.svg" className="h-5 w-5" alt="gender" />
                 <div>
                   <p className="">{data.essentials.gender}</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3 ">
-                <img src={Location} className="h-5 w-5" alt="location" />
+                <img src="/assets/discover/location.svg" className="h-5 w-5" alt="location" />
                 <div className="text-nowrap">
                   <p className="">{data.essentials.location}</p>
                 </div>

@@ -1,63 +1,21 @@
 import { useState, useEffect, useCallback } from "react";
 import { userData } from "@/assets/data";
-import ExpandableProfileCard from "./ExpandableProfileCard";
 import EmblaCarousel from "./EmblaCarousel";
 import AnimatedPagination from "./Pagination";
+import { EmblaOptionsType } from 'embla-carousel'
+
 
 const FocusCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const SLIDE_COUNT = 5
+  const OPTIONS: EmblaOptionsType = { loop: true }
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (!isAnimating && !isExpanded) {
-        handleNext();
-      }
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [currentIndex, isAnimating, isExpanded]);
-
-  const handleNext = useCallback(() => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentIndex((prev) => (prev === userData.length - 1 ? 0 : prev + 1));
-    setTimeout(() => setIsAnimating(false), 500);
-  }, [isAnimating]);
-
-  const handlePrev = useCallback(() => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentIndex((prev) => (prev === 0 ? userData.length - 1 : prev - 1));
-    setTimeout(() => setIsAnimating(false), 500);
-  }, [isAnimating]);
-
-  const getCardClass = useCallback(
-    (index) => {
-      const baseClass =
-        "absolute flex flex-col bg-[#F5F6F8] rounded-xl shadow-lg overflow-hidden transition-all duration-500 ease-in-out overflow-hidden";
-
-      // Set current card to 60% width
-      const currentCardClass =
-        "w-[90%] lg:w-[60%] h-[600px] left-1/2 -translate-x-1/2 z-10 opacity-100";
-      const sideCardClass = "w-[25%] h-[450px] opacity-50";
-
-      if (index === currentIndex) {
-        return `${baseClass} ${currentCardClass}`;
-      }
-      if (index === (currentIndex - 1 + userData.length) % userData.length) {
-        return `${baseClass} ${sideCardClass} left-0`;
-      }
-      if (index === (currentIndex + 1) % userData.length) {
-        return `${baseClass} ${sideCardClass} right-0`;
-      }
-      return `${baseClass} w-0 h-0 translate-x-full opacity-0`;
-    },
-    [currentIndex]
-  );
 
   return (
-    <div className="w-full relative ">
+    <div className="w-full relative">
+      
       {/* Progress Indicators */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
         {userData.map((_, index) => (
@@ -71,31 +29,32 @@ const FocusCarousel = () => {
           />
         ))}
       </div>
+      
       {/* Carousel container */}
-      <EmblaCarousel
-        slides={userData}
-        options={{
-          loop: true,
-          containScroll: "trimSnaps",
-          selectedClass: "embla__slide--selected",
-          draggableClass: "embla__slide--draggable",
-        }}
-        onPrev={handlePrev}
-        onNext={handleNext}
-      >
-        {userData.map((profile, index) => (
-          <div key={profile.id} className={getCardClass(index)}>
-            <ExpandableProfileCard
-              profile={profile}
-              index={index}
-              currentIndex={currentIndex}
-              isExpanded={isExpanded}
-              setIsExpanded={setIsExpanded}
-            />
-          </div>
-        ))}
-      </EmblaCarousel>
-      <AnimatedPagination total={userData.length} currentIndex={currentIndex} />
+         <EmblaCarousel slides={userData} options={OPTIONS} />
+
+      
+      {/* <AnimatedPagination total={userData.length} currentIndex={currentIndex} /> */}
+      
+      {/* Message input */}
+      <div className="w-full max-w-xl mx-auto mt-8 relative">
+        <input
+          type="text"
+          placeholder="Message Card"
+          className="w-full py-3 px-12 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
+        />
+        <div className="absolute left-4 top-1/2 -translate-y-1/2">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 18.333C14.6024 18.333 18.3334 14.6021 18.3334 9.99967C18.3334 5.39728 14.6024 1.66634 10 1.66634C5.39765 1.66634 1.66671 5.39728 1.66671 9.99967C1.66671 14.6021 5.39765 18.333 10 18.333Z" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <button className="absolute right-4 top-1/2 -translate-y-1/2 text-pink-500">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 2L11 13" stroke="#FF0080" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="#FF0080" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };

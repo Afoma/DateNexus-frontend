@@ -70,8 +70,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #fff inset !important; /* Change white to your desired background color */
-  -webkit-text-fill-color: #383838 !important; /* Change #333 to your desired text color */
+  -webkit-box-shadow: 0 0 0 30px #fff inset !important; 
+  -webkit-text-fill-color: #383838 !important; 
 }
 
 /* For non-WebKit browsers */
@@ -79,21 +79,20 @@ input:autofill,
 input:autofill:hover,
 input:autofill:focus,
 input:autofill:active {
-  box-shadow: 0 0 0 30px #fff inset !important; /* Change white to your desired background color */
-  -webkit-text-fill-color: #383838 !important; /* Change #333 to your desired text color */
+  box-shadow: 0 0 0 30px #fff inset !important; 
+  -webkit-text-fill-color: #383838 !important; 
 }
 
-/* Add this to your CSS file */
 .desktop-image {
-  max-height: 90vh; /* This makes the image take up to 90% of the viewport height */
+  max-height: 90vh; 
   width: auto;
   max-width: 100%;
 }
 
 .embla {
-  max-width: 58rem;
+  max-width: 48rem;
   margin: auto;
-  --slide-height: 19rem;
+  --slide-height: 40rem;
   --slide-spacing: 1rem;
   --slide-size: 55%;
 }
@@ -111,7 +110,7 @@ input:autofill:active {
   min-width: 0;
   padding-left: var(--slide-spacing);
 }
-.embla__slide__img {
+.embla__slide__number {
   box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
   border-radius: 1.8rem;
   font-size: 4rem;
@@ -197,11 +196,11 @@ input:autofill:active {
   border-radius: 50%;
   display: flex;
   align-items: center;
-  content: "";
+  content: '';
 }
 .embla__dot--selected:after {
   box-shadow: inset 0 0 0 0.2rem var(--text-body);
 }
-.embla__slide__img {
+.embla__slide__number {
   backface-visibility: hidden;
 }

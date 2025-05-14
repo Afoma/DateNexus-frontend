@@ -1,23 +1,20 @@
-import { useState, useEffect, useCallback } from "react";
-import { userData } from "@/assets/data";
-import EmblaCarousel from "./EmblaCarousel";
-import AnimatedPagination from "./Pagination";
-import { EmblaOptionsType } from 'embla-carousel'
-
+import { useState, useEffect, useCallback } from 'react';
+import { userData } from '@/assets/data';
+import EmblaCarousel from './EmblaCarousel';
+import AnimatedPagination from './Pagination';
+import { EmblaOptionsType } from 'embla-carousel';
 
 const FocusCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const SLIDE_COUNT = 5
-  const OPTIONS: EmblaOptionsType = { loop: true }
-
+  const SLIDE_COUNT = 5;
+  const OPTIONS: EmblaOptionsType = { loop: true, containScroll: false };
 
   return (
-    <div className="w-full relative">
-      
+    <div className='w-full relative'>
       {/* Progress Indicators */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+      {/* <div className="absolute top-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
         {userData.map((_, index) => (
           <div
             key={index}
@@ -28,16 +25,15 @@ const FocusCarousel = () => {
             }`}
           />
         ))}
-      </div>
-      
-      {/* Carousel container */}
-         <EmblaCarousel slides={userData} options={OPTIONS} />
+      </div> */}
 
-      
+      {/* Carousel container */}
+      <EmblaCarousel slides={userData} options={OPTIONS} />
+
       {/* <AnimatedPagination total={userData.length} currentIndex={currentIndex} /> */}
-      
+
       {/* Message input */}
-      <div className="w-full max-w-xl mx-auto mt-8 relative">
+      {/* <div className="w-full max-w-xl mx-auto mt-8 relative">
         <input
           type="text"
           placeholder="Message Card"
@@ -54,7 +50,7 @@ const FocusCarousel = () => {
             <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="#FF0080" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

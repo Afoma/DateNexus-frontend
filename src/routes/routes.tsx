@@ -22,9 +22,12 @@ import NewPassword from '@/components/NewPassword';
 import Explore from '@/pages/Explore';
 import Discover from '@/pages/Discover';
 import CommunityChatDemo from '@/pages/CommunityChat';
-import ChatPage from '@/components/Chat/ChatPage';
-import MessagesPage from '@/components/Chat/MessagesPage';
+import ChatPage from '@/pages/ChatPage';
+import MessagesPage from '@/pages/MessagesPage';
 import MapSelection from '@/components/MapSelection/MapSelection';
+import MatchPage from '@/pages/MatchPage';
+import UploadYourPhotos from '@/pages/UploadPhotos';
+import ProfileDetails from '@/pages/ProfileDetails';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +49,7 @@ const router = createBrowserRouter([
       { path: 'otp', element: <OtpConfirmation /> },
       { path: 'createwallet', element: <Passkey /> },
       { path: 'createProfile', element: <CreateProfile /> },
+      { path: 'upload-photos', element: <UploadYourPhotos /> },
       { path: 'wallet', element: <WalletActions /> },
       { path: 'smartSignin', element: <SmartWalletSignIn /> },
       { path: 'verify', element: <Verify /> },
@@ -58,6 +62,12 @@ const router = createBrowserRouter([
       { path: 'chat', element: <MessagesPage /> },
       { path: 'chat/:chatId', element: <ChatPage /> },
       { path: 'map-selection', element: <MapSelection /> },
+      { path: 'match', element: <MatchPage /> },
+      {
+        path: 'profile/:profileId',
+        element: <ProfileDetails />,
+     
+      },
     ],
   },
 ]);

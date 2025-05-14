@@ -40,6 +40,20 @@ const ExpandableProfileCard: React.FC<ExpandableProfileCardProps> = ({
         {/* ${
             isExpanded ? 'h-[40%]' : 'h-[70%]'
           } */}
+
+        <div className='absolute top-4 left-1/2 -translate-x-1/2 flex gap-2 z-20'>
+          {profile.images.map((_, index) => (
+            <div
+              key={index}
+              className={`w-10 h-1 rounded transition-colors duration-300 ${
+                index
+                  ? 'bg-gradient-to-r from-[#F83E67] to-[#A50976]'
+                  : 'bg-[#F5F6F8]'
+              }`}
+            />
+          ))}
+        </div>
+
         <div className={`transition-all duration-300 `}>
           {profile.profileImage ? (
             <img

@@ -1,5 +1,5 @@
-import { Layout } from 'lucide-react';
-import Header from '../global/Header';
+import Layout from '@/components/layouts/AuthLayout';
+import Header from '../components/global/Header';
 import { useParams } from 'react-router-dom';
 
 const ChatPage = () => {

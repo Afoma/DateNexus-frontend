@@ -129,7 +129,13 @@ const Onboarding = (): JSX.Element => {
   };
 
   const onSubmit = (data: OnboardingFormData) => {
-    console.log(data);
+ 
+    const payload = {
+      ...data,
+      location: locationInfo
+    }
+    console.log(payload);
+    navigate('/app/upload-photos');
   };
 
   const handleGetCurrentLocation = () => {

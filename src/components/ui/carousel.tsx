@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Button } from './button';
 import { userData } from '@/assets/data';
+import { useNavigate } from 'react-router-dom';
 
 interface CarouselProps {
   items: {
@@ -17,6 +18,9 @@ interface CarouselProps {
 
 const Carousel = () => {
   const items = userData;
+
+  const navigate = useNavigate();
+
   const settings = {
     dots: true,
     infinite: true,
@@ -30,7 +34,7 @@ const Carousel = () => {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          centerMode: false,
+          centerMode: true,
         },
       },
     ],
@@ -46,13 +50,17 @@ const Carousel = () => {
     //     }
     //   });
     // },
-    customPaging: (i: number) => (
-      <div
-        className={`w-3 h-3 rounded-md ${
-          i === 0 ? 'bg-[#f83e67]' : 'bg-[#d9d9d9] w-2 h-2 mt-0.5'
-        }`}
-      />
-    ),
+    // customPaging: (i: number, slick) => {
+    //   const isActive =
+    //     slick && slick.currentSlide !== undefined && i === slick.currentSlide;
+    //   return (
+    //     <div
+    //       className={`w-3 h-3 rounded-md ${
+    //         isActive ? 'bg-[#f83e67]' : 'bg-[#d9d9d9] w-2 h-2 mt-0.5'
+    //       }`}
+    //     />
+    //   );
+    // },
   };
 
   return (
@@ -60,33 +68,42 @@ const Carousel = () => {
       <Slider {...settings}>
         {items.map((card) => (
           <div key={card.id} className='px-4'>
-            <div className='profile-card bg-[#f5f6f8] rounded-[16.7px] overflow-hidden transition-all duration-300 max-w-[265px]'>
+            <div className='profile-card bg-[#f5f6f8] rounded-[16.7px] overflow-hidden transition-all duration-300 max-w-[265px] p-4'>
               <div className='relative'>
                 <div
-                  className='w-[223px] h-[271px] mx-auto mt-[17px] rounded-[9.55px] overflow-hidden'
-                  style={{
-                    background: `url(${card.profileImage}) 50% 50% / cover`,
-                  }}
+                  className='relative mx-auto rounded-[9.55px] overflow-hidden'
+                  // style={{
+                  //   background: `url(${card.profileImage}) 50% 50% / cover`,
+                  // }}
                 >
-                  <div className='flex space-x-2 mt-2.5 ml-7'>
+                  <img
+                    src={card.profileImage}
+                    alt={card.name}
+                    className='w-full h-[250px] bg-cover bg-no-repeat bg-center '
+                  />
+
+                  <div className='absolute top-2 left-[50%] -translate-x-1/2  mx-auto flex space-x-2 mt-2.5'>
                     <div className='w-7 h-1 rounded-[7.77px] [background:linear-gradient(90deg,rgba(248,62,103,1)_0%,rgba(165,9,118,1)_100%)]' />
                     <div className='w-7 h-1 bg-white rounded-[7.77px]' />
                     <div className='w-7 h-1 bg-white rounded-[7.77px]' />
                     <div className='w-7 h-1 bg-white rounded-[7.77px]' />
                   </div>
 
-                  <div className='absolute bottom-3 left-1/2 transform -translate-x-1/2 w-[22px] h-[29px] text-center'>
+                  <button
+                    onClick={() => navigate('/app/profile/jdksd')}
+                    className='absolute bottom-3 left-1/2 transform -translate-x-1/2 w-[22px] h-[29px] text-center'
+                  >
                     <div className='w-[19px] h-[19px] mx-auto bg-[#d9d9d98a] rounded-[9.67px] border-[0.81px] border-solid border-white backdrop-blur-[1.61px]'>
                       <img
                         className='w-2 h-[5px] mx-auto mt-1.5'
                         alt='Swipe up'
-                        src='/group-44449-2.png'
+                        src='/assets/swipeup.svg'
                       />
                     </div>
                     <div className='font-semibold text-white text-[4.1px] mt-1'>
                       Swipe up
                     </div>
-                  </div>
+                  </button>
                 </div>
 
                 <div className='flex justify-center items-center mt-4'>
@@ -106,7 +123,7 @@ const Carousel = () => {
                   {card.bio}
                 </div>
 
-                <div className='flex justify-center space-x-2 mt-3 mb-4'>
+                <div className='flex justify-center space-x-2 mt-3'>
                   <Button
                     variant='outline'
                     className='w-[78px] h-7 bg-[#dadada] rounded-[5.57px] p-0'

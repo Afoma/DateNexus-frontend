@@ -207,7 +207,7 @@ input:autofill:active {
 
 
 .slick-dots {
-  bottom: -40px;
+  bottom: -40px !important;
 }
 
 .slick-dots li {
@@ -228,5 +228,9 @@ input:autofill:active {
 }
 
 .slick-track {
-  margin: 40px 0
+  margin: 50px 0
+}
+
+.slick-dots li.slick-active button:before  {
+  color: #f83e67 !important;
 }

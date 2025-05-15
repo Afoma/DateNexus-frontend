@@ -34,142 +34,162 @@ const photos = [
 
 // UserIcon essentials data
 const essentials = [
-  { icon: '/hugeicons-birthday-cake.svg', text: '20th December' },
-  { iconSrc: '/group-3.png', text: 'Abuja, Nigeria' },
-  { icon: '/ph-gender-male-light.svg', text: 'Male' },
+  { icon: '/assets/birthday.svg', text: '20th December' },
+  { icon: '/assets/location.svg', text: 'Abuja, Nigeria' },
+  { icon: '/assets/gender.svg', text: 'Male' },
 ];
 
 const ProfileDetails = () => {
   const id = useParams();
 
   console.log(id, 'id');
+
+  const card = {
+    id: 1,
+    name: 'Sarah Johnson',
+    bio: 'Creative Director | Design Enthusiast',
+    likes: 1.2,
+    comments: 234,
+    profileImage:
+      'https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ=',
+    images: [
+      'https://www.shutterstock.com/image-photo/horizontal-shot-carefree-confident-lesbian-260nw-1376301152.jpg',
+      'https://writestylesonline.com/wp-content/uploads/2018/11/Three-Statistics-That-Will-Make-You-Rethink-Your-Professional-Profile-Picture-1024x1024.jpg',
+      'https://img.freepik.com/premium-photo/professional-photo-linkedin-profile-picture-beautiful-looking-woman-light-color_1078199-10840.jpg',
+      'https://img.freepik.com/premium-photo/professional-photo-linkedin-profile-picture-beautiful-looking-woman-light-color_1078199-10484.jpg?w=360',
+    ],
+    occupation: 'We Designer',
+    essentials: {
+      age: 27,
+      location: 'Paris, France',
+      gender: 'Female',
+    },
+  };
   return (
     <Layout>
       <div className='z-10 relative mt-10'>
         <Header />
       </div>
       <div>
-        <div className=' bg-white'>
+        <div className=' bg-white p-5'>
           {/* Main Profile Card */}
-          <div className='  bg-[#f5f6f8] rounded-[20.72px] overflow-hidden border-none'>
-            {/* Profile Image */}
-            <div className=' rounded-[9.55px] overflow-hidden '>
-              <div className='relative w-[34px] h-9 top-[231px] left-[95px]'>
-                <div className=' w-6 h-6 top-0 left-1 bg-[#d9d9d98a] rounded-xl border border-solid border-white backdrop-blur-[2px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(2px)_brightness(100%)]'>
+          <div className='  bg-[#f5f6f8] rounded-[20.72px] p-6'>
+            <div className='relative max-w-[223px] '>
+              <div
+                className='relative rounded-[9.55px] overflow-hidden'
+                // style={{
+                //   background: `url(${card.profileImage}) 50% 50% / cover`,
+                // }}
+              >
+                <img
+                  src={card.profileImage}
+                  alt={card.name}
+                  className=' h-[250px] bg-cover bg-no-repeat bg-center '
+                />
+
+                <button
+                  //  onClick={() => navigate('/app/profile/jdksd')}
+                  className='absolute bottom-3 left-1/2 transform -translate-x-1/2 w-[22px] h-[29px] text-center'
+                >
+                  <div className='w-[19px] h-[19px] mx-auto bg-[#d9d9d98a] rounded-[9.67px] border-[0.81px] border-solid border-white backdrop-blur-[1.61px]'>
+                    <img
+                      className='w-2 h-[5px] mx-auto mt-1.5'
+                      alt='Swipe up'
+                      src='/assets/swipeup.svg'
+                    />
+                  </div>
+                  <div className='font-semibold text-white text-[4.1px] mt-1'>
+                    Swipe down
+                  </div>
+                </button>
+              </div>
+
+              <div className='flex justify-center items-center mt-4'>
+                <div className='font-medium text-[#f83e67] text-sm'>
+                  {card.name}
+                </div>
+                {card.verified && (
                   <img
-                    className='w-full h-full'
-                    alt='Group'
-                    src='https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ='
+                    className='w-4 h-4 ml-2'
+                    alt='Verified'
+                    src='/material-symbols-verified-2.svg'
                   />
-                </div>
-
-                <div className=" top-7 left-0 [font-family:'Poppins',Helvetica] font-semibold text-white text-[5.1px] text-center tracking-[0] leading-[normal]">
-                  Swipe down
-                </div>
-              </div>
-            </div>
-
-            {/* UserIcon Info Section */}
-            <div className=' w-[197px] h-[100px] top-[326px] left-[55px]'>
-              <div className=" w-[195px] top-7 left-0 [font-family:'Poppins',Helvetica] font-normal text-[#383838] text-[10.4px] text-center tracking-[0] leading-[normal]">
-                Enthusiast of AI and machine learning
+                )}
               </div>
 
-              {/* Like/Dislike Buttons */}
-              <div className=' w-[163px] h-7 top-[72px] left-[15px] flex gap-2'>
+              <div className='text-center font-normal text-[#383838] text-[10.4px] mt-2 mx-auto max-w-[155px]'>
+                {card.bio}
+              </div>
+
+              <div className='flex justify-center space-x-2 mt-3'>
                 <Button
                   variant='outline'
-                  className='w-[78px] h-7 p-0 bg-[#dadada] rounded-[6.91px] border-none flex items-center justify-center'
+                  className='w-[78px] h-7 bg-[#dadada] rounded-[5.57px] p-0'
                 >
-                  <XIcon className='w-5 h-5' />
+                  <img src='/assets/discover/cancel.svg' alt='cancel' />
                 </Button>
+                <Button className='w-[78px] h-7 rounded-[5.57px] p-0 [background:linear-gradient(90deg,rgba(248,62,103,1)_0%,rgba(165,9,118,1)_100%)]'>
+                  <img src='/assets/discover/cupscid.svg' alt='home' />
+                </Button>
+              </div>
+            </div>
 
-                <Button className='w-[78px] h-7 p-0 rounded-[6.91px] [background:linear-gradient(90deg,rgba(248,62,103,1)_0%,rgba(165,9,118,1)_100%)] border-none flex items-center justify-center'>
-                  <img
-                    className='w-[19px] h-[17px]'
-                    alt='Heart'
-                    src='/group-2.png'
+            <div className='space-y-6 mt-6'>
+              {/* Photos Section */}
+              <div className='bg-gradient-to-r from-[#F83E67] to-[#A50976] text-transparent bg-clip-text font-medium text-xl'>
+                Photos
+              </div>
+
+              {/* Photo Grid */}
+              <div className=' top-[505px] left-10 flex gap-[15px]'>
+                {photos.map((photo, index) => (
+                  <div
+                    key={index}
+                    className='w-[136px] h-[147px] rounded-[17.1px]'
+                    style={{
+                      backgroundImage: `url(${photo.src})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
                   />
-                </Button>
+                ))}
               </div>
 
-              {/* UserIcon Name with Verification */}
-              <div className=' w-[131px] h-[21px] top-0 left-[33px] flex items-center justify-center'>
-                <div className=" w-[101px] top-0 left-0 [font-family:'Poppins',Helvetica] font-medium text-[#f83e67] text-sm text-center tracking-[0] leading-[normal]">
-                  Jennifer Lopez
-                </div>
-
-                <img
-                  className=' w-4 h-4 top-[3px] left-[113px]'
-                  alt='Verified'
-                  src='/material-symbols-verified.svg'
-                />
+              {/* About Section */}
+              <div className='bg-gradient-to-r from-[#F83E67] to-[#A50976] text-transparent bg-clip-text font-medium text-xl'>
+                About
               </div>
-            </div>
 
-            {/* Photos Section */}
-            <div className=" w-[184px] top-[455px] left-10 [background:linear-gradient(90deg,rgba(248,62,103,1)_0%,rgba(165,9,118,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] [font-family:'Poppins',Helvetica] font-medium text-transparent text-xl text-justify tracking-[0] leading-[normal]">
-              Photos
-            </div>
+              <div className=" w-[507px] top-[727px] left-10 [font-family:'Poppins',Helvetica] font-normal text-[#383838] text-base tracking-[0] leading-[normal]">
+                Enthusiast of AI and machine learning.
+              </div>
 
-            {/* Photo Grid */}
-            <div className=' top-[505px] left-10 flex gap-[15px]'>
-              {photos.map((photo, index) => (
-                <div
-                  key={index}
-                  className='w-[136px] h-[147px] rounded-[17.1px]'
-                  style={{
-                    backgroundImage: `url(${photo.src})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
-                />
-              ))}
-            </div>
+              {/* Profession Section */}
+              <div className='bg-gradient-to-r from-[#F83E67] to-[#A50976] text-transparent bg-clip-text font-medium text-xl'>
+                Profession
+              </div>
 
-            {/* About Section */}
-            <div className=" w-[184px] top-[681px] left-10 [background:linear-gradient(90deg,rgba(248,62,103,1)_0%,rgba(165,9,118,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] [font-family:'Poppins',Helvetica] font-medium text-transparent text-xl text-justify tracking-[0] leading-[normal]">
-              About
-            </div>
+              <div className=" w-[270px] top-[829px] left-10 [font-family:'Poppins',Helvetica] font-normal text-[#383838] text-base tracking-[0] leading-[normal]">
+                AI and Machine learning
+              </div>
 
-            <div className=" w-[507px] top-[727px] left-10 [font-family:'Poppins',Helvetica] font-normal text-[#383838] text-base tracking-[0] leading-[normal]">
-              Enthusiast of AI and machine learning.
-            </div>
+              {/* User's Essentials Section */}
+              <div className='bg-gradient-to-r from-[#F83E67] to-[#A50976] text-transparent bg-clip-text font-medium text-xl'>
+                User's Essentials
+              </div>
 
-            {/* Profession Section */}
-            <div className=" w-[184px] top-[783px] left-10 [background:linear-gradient(90deg,rgba(248,62,103,1)_0%,rgba(165,9,118,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] [font-family:'Poppins',Helvetica] font-medium text-transparent text-xl text-justify tracking-[0] leading-[normal]">
-              Profession
-            </div>
-
-            <div className=" w-[270px] top-[829px] left-10 [font-family:'Poppins',Helvetica] font-normal text-[#383838] text-base tracking-[0] leading-[normal]">
-              AI and Machine learning
-            </div>
-
-            {/* User's Essentials Section */}
-            <div className=" w-[172px] top-[885px] left-[45px] [background:linear-gradient(90deg,rgba(248,62,103,1)_0%,rgba(165,9,118,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] [font-family:'Poppins',Helvetica] font-medium text-transparent text-xl text-justify tracking-[0] leading-[normal]">
-              UserIcon&apos;s Essentials
-            </div>
-
-            {/* Essentials List */}
-            <div className=' top-[934px] left-[45px] flex flex-col gap-6'>
-              {essentials.map((item, index) => (
-                <div key={index} className='flex items-center gap-2'>
-                  {item.icon ? (
+              {/* Essentials List */}
+              <div className=' top-[934px] left-[45px] flex flex-col gap-6'>
+                {essentials.map((item, index) => (
+                  <div key={index} className='flex items-center gap-2'>
                     <img className='w-5 h-5' alt={item.text} src={item.icon} />
-                  ) : (
-                    <div className='w-5 h-5 flex items-center justify-center'>
-                      <img
-                        className='w-3.5 h-4'
-                        alt={item.text}
-                        src={item.iconSrc}
-                      />
+
+                    <div className="[font-family:'Poppins',Helvetica] font-normal text-[#383838] text-base tracking-[0] leading-[normal]">
+                      {item.text}
                     </div>
-                  )}
-                  <div className="[font-family:'Poppins',Helvetica] font-normal text-[#383838] text-base tracking-[0] leading-[normal]">
-                    {item.text}
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>

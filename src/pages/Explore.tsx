@@ -6,7 +6,7 @@ import Header from "@/components/global/Header";
 interface Community {
   id: number;
   title: string;
-  imageSrc: string;
+  imageSrc: string; 
   memberCount: number;
   isJoined: boolean;
   endDate: Date;

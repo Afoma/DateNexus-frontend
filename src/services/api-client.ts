@@ -2,9 +2,10 @@ import router from "@/routes/routes";
 import axios from "axios";
 import Airtable from "airtable";
 
-
 export const base = new Airtable({
-  apiKey: import.meta.env.VITE_AIRTABLE_API_KEY,
+  apiKey:
+    import.meta.env.VITE_AIRTABLE_API_KEY ||
+    "patw9NBFD4IyquKVM.239148b7f512100f9fd92d2db81d0cc413ee4845dcdefc1d5a79aa1eb06f9db2",
 }).base(import.meta.env.VITE_AIRTABLE_BASE_ID);
 
 const axiosInstance = axios.create({

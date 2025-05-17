@@ -9,7 +9,7 @@ import useQuestCheck from "@/hooks/useQuestCheck"; // Make sure path is correct
 const Discover = () => {
   const queryClient = useQueryClient();
   
-  // Use the quest check hook
+  // Use the quest check hook 
   const { 
     isQuestModalOpen, 
     closeQuestModal, 

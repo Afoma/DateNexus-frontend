@@ -1,6 +1,6 @@
 import Layout from '@/components/layouts/AuthLayout';
 import Header from '../components/global/Header';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'; 
 
 const ChatPage = () => {
   const { chatId } = useParams();

@@ -7,6 +7,7 @@ import useUserProfile from "@/hooks/useUserProfile";
 import { PuffLoader } from "react-spinners";
 import toast from "react-hot-toast";
 import ConnectButton from "@/components/ConnectionButton";
+import { WalletConnect } from "@/components/WalletConnect";
 
 
 const ProfileDetails = () => {
@@ -194,6 +195,14 @@ const ProfileDetails = () => {
                     refetch();
                   }}
                 />
+              </div>
+
+              {/* Wallet Connection Section */}
+              <div className="mt-4">
+                <div className="bg-gradient-to-r from-[#F83E67] to-[#A50976] text-transparent bg-clip-text font-medium text-xl mb-2">
+                  Web3 Wallet
+                </div>
+                <WalletConnect />
               </div>
             </div>
 

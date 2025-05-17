@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import AppLoader from "./components/AppLoader";
+import { Providers } from "./components/Providers";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,17 +26,20 @@ const App = () => {
   const handleGetStarted = () => navigate("/app/installation-guide");
 
   return (
-    <div className="min-h-screen font-sans">
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <AppLoader key="loader" onLoadingComplete={handleLoadingComplete} />
-        ) : (
-          <div key="content">
-            <Outlet context={{ onGetStarted: handleGetStarted }} />
-          </div>
-        )}
-      </AnimatePresence>
-    </div>
+    <Providers>
+      <div className="min-h-screen font-sans">
+        <Toaster position="top-right" />
+        <AnimatePresence mode="wait">
+          {isLoading ? (
+            <AppLoader key="loader" onLoadingComplete={handleLoadingComplete} />
+          ) : (
+            <div key="content">
+              <Outlet context={{ onGetStarted: handleGetStarted }} />
+            </div>
+          )}
+        </AnimatePresence>
+      </div>
+    </Providers>
   );
 };
 

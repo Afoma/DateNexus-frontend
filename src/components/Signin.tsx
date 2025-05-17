@@ -26,6 +26,8 @@ import { Toaster } from "react-hot-toast";
 import { Eye, EyeOff } from "lucide-react";
 import { PuffLoader } from "react-spinners";
 import BottomCurveWhite from "./BottomCurveWhite";
+import { WalletConnect } from "./WalletConnect";
+import { AxiosError } from "axios";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -34,11 +36,13 @@ const FormSchema = z.object({
     .min(7, { message: "Password must be more than 7 characters" }),
 });
 
+type FormValues = z.infer<typeof FormSchema>;
+
 const Signin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const form = useForm({
+  const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
@@ -76,7 +80,7 @@ const Signin = () => {
     }
   };
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: FormValues) => {
     setIsLoading(true);
     try {
       // Sign in request
@@ -93,9 +97,13 @@ const Signin = () => {
       
       // Check if user profile is complete and navigate accordingly
       await checkUserProfile();
-    } catch (err) {
-      // Handle error
-      toast.error(err.response?.data?.message || "An error occurred during sign in");
+    } catch (error) {
+      // Handle error with proper type checking
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data?.message || "An error occurred during sign in");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -148,6 +156,7 @@ const Signin = () => {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        type="email"
                         className={cn(
                           "focus:ring-custom-pink focus:ring-2 h-[44px] rounded-[12px] bg-input-bg text-custom-black"
                         )}
@@ -218,14 +227,20 @@ const Signin = () => {
             <span>OR</span>
             <img src={Line} alt="" />
           </div>
-          <Link to="/app/createwallet" className="w-full">
+          
+          {/* Smart Wallet Integration */}
+          <div className="w-full">
+            <WalletConnect />
+          </div>
+
+          {/* <Link to="/app/createwallet" className="w-full">
             <Button
               variant="outline"
               className="font-semibold w-full text-xs h-[44px] rounded-[12px] border border-solid border-grey bg-white"
             >
               Sign in with Passkey
             </Button>
-          </Link>
+          </Link> */}
           <Link to="/app/signup">
             <Button variant="link" className="flex gap-1 w-full">
               Don't have an account?{" "}

@@ -3,13 +3,31 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { PuffLoader } from "react-spinners";
 
+// Configuration for OAuth providers
+const config = {
+  github: {
+    callbackUrl:
+      process.env.NEXT_PUBLIC_GITHUB_CALLBACK_URL || window.location.origin,
+  },
+  twitter: {
+    callbackUrl:
+      process.env.NEXT_PUBLIC_TWITTER_CALLBACK_URL || window.location.origin,
+  },
+  linkedin: {
+    callbackUrl:
+      process.env.NEXT_PUBLIC_LINKEDIN_CALLBACK_URL || window.location.origin,
+  },
+};
+
 // Simple function to redirect to OAuth provider
 const handleOAuthRedirect = (provider: string) => {
   // Use the backend URL you specified
   const baseURL = "https://datenexus-be.onrender.com/api/v1";
 
-  // Create the OAuth URL for the specified provider
-  const oauthURL = `${baseURL}/api/v1/oauth/${provider}/`;
+  // Create the OAuth URL for the specified provider with callback URL
+  const oauthURL = `${baseURL}/oauth/${provider}?redirect_uri=${encodeURIComponent(
+    config[provider as keyof typeof config].callbackUrl
+  )}`;
 
   // Redirect to the OAuth endpoint
   window.location.href = oauthURL;
@@ -157,30 +175,36 @@ const SocialPlatformSection = () => {
 
   // Effect to handle OAuth callback
   useEffect(() => {
-    // Check for GitHub OAuth callback in URL params
+    // Check for OAuth callback in URL params
     const queryParams = new URLSearchParams(window.location.search);
     const code = queryParams.get("code");
     const error = queryParams.get("error");
-    const state = queryParams.get("state"); // If you're using state parameter
+    const state = queryParams.get("state");
+    const provider = window.location.pathname.split("/").pop(); // Get provider from URL if present
 
     // If we have a code and we haven't processed this OAuth callback yet
-    if (code && !oauthProcessing) {
+    if (code && !oauthProcessing && provider) {
       setOauthProcessing(true);
 
       // Log that we're processing the callback
-      console.log("Detected GitHub authorization code, processing...");
+      console.log(`Detected ${provider} authorization code, processing...`);
 
       // Define your backend URL
       const baseURL = "https://datenexus-be.onrender.com/api/v1";
 
       // Call your backend endpoint to process the code
-      fetch(`${baseURL}/oauth/github/callback?code=${code}`, {
-        method: "GET",
-        credentials: "include", // Include cookies if needed
-        headers: {
-          Accept: "application/json",
-        },
-      })
+      fetch(
+        `${baseURL}/oauth/${provider}/callback?code=${code}&state=${
+          state || ""
+        }`,
+        {
+          method: "GET",
+          credentials: "include", // Include cookies if needed
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -188,12 +212,14 @@ const SocialPlatformSection = () => {
           return response.json();
         })
         .then((data) => {
-          console.log("Successfully processed GitHub authentication:", data);
+          console.log(
+            `Successfully processed ${provider} authentication:`,
+            data
+          );
           // You can update UI or state based on successful authentication
-          // For example, you might display a success message or update user profile
         })
         .catch((err) => {
-          console.error("Error processing GitHub authentication:", err);
+          console.error(`Error processing ${provider} authentication:`, err);
           // You might want to show an error message to the user
         })
         .finally(() => {

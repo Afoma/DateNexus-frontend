@@ -6,7 +6,7 @@ import { PuffLoader } from "react-spinners";
 // Simple function to redirect to OAuth provider
 const handleOAuthRedirect = (provider: string) => {
   // Use the backend URL you specified
-  const baseURL = "https://datenexus-be.onrender.com";
+  const baseURL = "https://datenexus-be.onrender.com/api/v1";
 
   // Create the OAuth URL for the specified provider
   const oauthURL = `${baseURL}/api/v1/oauth/${provider}/`;
@@ -171,7 +171,7 @@ const SocialPlatformSection = () => {
       console.log("Detected GitHub authorization code, processing...");
 
       // Define your backend URL
-      const baseURL = "https://datenexus-be.onrender.com";
+      const baseURL = "https://datenexus-be.onrender.com/api/v1";
 
       // Call your backend endpoint to process the code
       fetch(`${baseURL}/oauth/github/callback?code=${code}`, {

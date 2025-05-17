@@ -46,23 +46,59 @@ const Signin = () => {
     },
   });
 
-  const onSubmit = (values) => {
+  // Function to check if user profile is complete
+  const checkUserProfile = async () => {
+    try {
+      const response = await axiosInstance.get("/users/profile");
+      
+      // Extract user data from response
+      const userData = response.data.data.user;
+      
+      // Check if all required profile fields are filled
+      const isProfileComplete = Boolean(
+        userData.age && 
+        userData.gender && 
+        userData.profession && 
+        userData.location?.coordinates?.length === 2
+      );
+      
+      if (isProfileComplete) {
+        // If profile is complete, go directly to discover page
+        navigate("/app/discover");
+      } else {
+        // If profile is incomplete, go to onboarding
+        navigate("/app/createProfile");
+      }
+    } catch (error) {
+      console.error("Error checking user profile:", error);
+      // If there's an error, default to onboarding
+      navigate("/app/createProfile");
+    }
+  };
+
+  const onSubmit = async (values) => {
     setIsLoading(true);
-    axiosInstance
-      .post("/auth/signin", {
+    try {
+      // Sign in request
+      const response = await axiosInstance.post("/auth/signin", {
         email: values.email,
         password: values.password,
-      })
-      .then((res) => {
-        localStorage.setItem("jwt", res.data.token);
-        navigate("/app/createProfile");
-        form.reset();
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-        setIsLoading(false);
       });
+      
+      // Store JWT token
+      localStorage.setItem("jwt", response.data.token);
+      
+      // Reset form
+      form.reset();
+      
+      // Check if user profile is complete and navigate accordingly
+      await checkUserProfile();
+    } catch (err) {
+      // Handle error
+      toast.error(err.response?.data?.message || "An error occurred during sign in");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

@@ -1,11 +1,14 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const onboardingSchema = z.object({
   birthday: z.date({
-    required_error: 'Date of birth is required',
+    required_error: "Date of birth is required",
   }),
 
-  gender: z.string().min(1, 'Gender is required'),
+  gender: z.string().min(1, "Gender is required"),
+  occupation: z.string({
+    required_error: "Occupation is required",
+  }),
   distance: z.number().min(1).max(500),
   worldwide: z.boolean().default(false),
   location: z

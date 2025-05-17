@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
         error.response?.status === 500
       ) {
         localStorage.clear();
-        router.navigate("/signin", { replace: true });
+        router.navigate("/app/signin", { replace: true });
       }
     }
     return Promise.reject(error);

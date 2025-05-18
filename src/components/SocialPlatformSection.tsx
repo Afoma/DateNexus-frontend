@@ -19,13 +19,16 @@ const config = {
   },
 };
 
-// Simple function to redirect to OAuth provider
 const handleOAuthRedirect = (provider: string) => {
-  // Use the backend URL you specified
+  // const baseURL = "http://localhost:7070/api/v1";
   const baseURL = "https://datenexus-be.onrender.com/api/v1";
+
+  // Save selected provider to session to read it back after OAuth flow
+  sessionStorage.setItem("oauth_provider", provider);
+
   const oauthURL = `${baseURL}/oauth/${provider}?redirect_uri=${
     process.env.VITE_BASE_URL || window.location.origin
-  }/app/createProfile?github=true`;
+  }/app/createProfile?`;
 
   window.location.href = oauthURL;
 };
@@ -171,78 +174,63 @@ const SocialPlatformSection = () => {
   const [oauthProcessing, setOauthProcessing] = useState(false);
 
   useEffect(() => {
-    console.log("SocialPlatformSection mounted");
     const queryParams = new URLSearchParams(window.location.search);
-    const token = queryParams.get("user"); // i intentionally set to user on the backend so the users wont know its a jwt token
-    token && console.log("There is a toekn present: ", token);
-    !token && console.log(queryParams);
-  }, []);
-
-  // Effect to handle OAuth callback
-  useEffect(() => {
-    // Check for OAuth callback in URL params
-    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get("user"); // JWT alias
     const code = queryParams.get("code");
-    const error = queryParams.get("error");
     const state = queryParams.get("state");
-    const provider = window.location.pathname.split("/").pop(); // Get provider from URL if present
+    const error = queryParams.get("error");
 
-    // If we have a code and we haven't processed this OAuth callback yet
-    if (code && !oauthProcessing && provider) {
+    const storedProvider = sessionStorage.getItem("oauth_provider");
+
+    if (token) {
+      console.log("Received token:", token);
+      // localStorage.setItem("jwt", token);
+      sessionStorage.removeItem("oauth_provider");
+      return;
+    }
+
+    if (error) {
+      console.error("OAuth error:", error);
+      sessionStorage.removeItem("oauth_provider");
+      window.history.replaceState({}, document.title, window.location.pathname);
+      return;
+    }
+
+    if (code && storedProvider && !oauthProcessing) {
       setOauthProcessing(true);
+      console.log(`Processing ${storedProvider} code...`);
 
-      // Log that we're processing the callback
-      console.log(`Detected ${provider} authorization code, processing...`);
-
-      // Define your backend URL
-      const baseURL = "https://datenexus-be.onrender.com/api/v1";
-
-      // Call your backend endpoint to process the code
       fetch(
-        `${baseURL}/oauth/${provider}/callback?code=${code}&state=${
+        `https://datenexus-be.onrender.com/api/v1/oauth/${storedProvider}/callback?code=${code}&state=${
           state || ""
         }`,
         {
           method: "GET",
-          credentials: "include", // Include cookies if needed
-          headers: {
-            Accept: "application/json",
-          },
+          credentials: "include",
+          headers: { Accept: "application/json" },
         }
       )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
         })
         .then((data) => {
-          console.log(
-            `Successfully processed ${provider} authentication:`,
-            data
-          );
-          // You can update UI or state based on successful authentication
+          console.log(`${storedProvider} auth success:`, data);
         })
         .catch((err) => {
-          console.error(`Error processing ${provider} authentication:`, err);
-          // You might want to show an error message to the user
+          console.error(`${storedProvider} auth error:`, err);
         })
         .finally(() => {
-          // Clean up the URL parameters regardless of success/failure
-          const cleanUrl = window.location.pathname;
-          window.history.replaceState({}, document.title, cleanUrl);
+          sessionStorage.removeItem("oauth_provider");
+          window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname
+          );
           setOauthProcessing(false);
         });
     }
-
-    // Handle potential errors from OAuth
-    if (error) {
-      console.error("OAuth error:", error);
-      // Clean up the URL parameters
-      const cleanUrl = window.location.pathname;
-      window.history.replaceState({}, document.title, cleanUrl);
-    }
-  }, [oauthProcessing]); // Only re-run if oauthProcessing changes
+  }, [oauthProcessing]);
 
   // Handle the connect button click
   const handleSocialConnect = (platform: string, available: boolean) => {

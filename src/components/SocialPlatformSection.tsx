@@ -23,13 +23,10 @@ const config = {
 const handleOAuthRedirect = (provider: string) => {
   // Use the backend URL you specified
   const baseURL = "https://datenexus-be.onrender.com/api/v1";
+  const oauthURL = `${baseURL}/oauth/${provider}?redirect_uri=${
+    process.env.VITE_BASE_URL || window.location.origin
+  }/app/createProfile?github=true`;
 
-  // Create the OAuth URL for the specified provider with callback URL
-  const oauthURL = `${baseURL}/oauth/${provider}?redirect_uri=${encodeURIComponent(
-    config[provider as keyof typeof config].callbackUrl
-  )}`;
-
-  // Redirect to the OAuth endpoint
   window.location.href = oauthURL;
 };
 
@@ -172,6 +169,14 @@ const SocialPlatformSection = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [oauthProcessing, setOauthProcessing] = useState(false);
+
+  useEffect(() => {
+    console.log("SocialPlatformSection mounted");
+    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get("user"); // i intentionally set to user on the backend so the users wont know its a jwt token
+    token && console.log("There is a toekn present: ", token);
+    !token && console.log(queryParams);
+  }, []);
 
   // Effect to handle OAuth callback
   useEffect(() => {

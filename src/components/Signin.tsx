@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import TopCurveWhite from "./TopCurveWhite";
 import BottomCurve from "./BottomCurve";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axiosInstance from "@/services/api-client";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
@@ -28,6 +28,8 @@ import { PuffLoader } from "react-spinners";
 import BottomCurveWhite from "./BottomCurveWhite";
 import { WalletConnect } from "./WalletConnect";
 import { AxiosError } from "axios";
+import { useAccount } from "wagmi";
+import router from "@/routes/routes";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -49,6 +51,16 @@ const Signin = () => {
       password: "",
     },
   });
+
+  const { address, isConnected } = useAccount();
+
+  console.log("Address ? Connected ?",address, isConnected);
+
+  useEffect(() => {
+    if (isConnected) {
+      navigate("/app/createProfile");
+    }
+  })
 
   // Function to check if user profile is complete
   const checkUserProfile = async () => {

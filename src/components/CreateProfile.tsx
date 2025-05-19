@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { differenceInYears } from "date-fns";
-import { ChevronDownIcon, X } from "lucide-react";
+import { ChevronDownIcon, X, Wallet } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useDisconnect, useAccount } from "wagmi";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -88,6 +89,8 @@ interface Coordinates {
 
 const Onboarding = (): JSX.Element => {
   const navigate = useNavigate();
+  const { disconnect } = useDisconnect();
+  const { address, isConnected } = useAccount();
   const [locationInfo, setLocationInfo] = useState<string | null>(null);
   const [distance, setDistance] = useState(200);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -318,13 +321,30 @@ const Onboarding = (): JSX.Element => {
           <div className="w-full max-w-[648px] flex flex-col gap-8">
             {/* Header section */}
             <div>
-              <div className="text-center lg:text-center gap-2 text-2xl lg:text-4xl font-semibold mt-24 md:mt-2  p-2 pb-10   ">
-                <h1 className="text-[#000000] text-center text-nowrap ">
+              <div className="text-center lg:text-center gap-2 text-2xl lg:text-4xl font-semibold mt-24 md:mt-2 p-2 pb-10">
+                <h1 className="text-[#000000] text-center text-nowrap">
                   Create your DateN
                   <span className="bg-gradient-to-r from-[#F83E67] to-[#A50976] text-transparent bg-clip-text">
                     exus profile
                   </span>
                 </h1>
+                {isConnected && address && (
+                  <div className="mt-4 flex flex-col items-center gap-2">
+                    <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full">
+                      <Wallet className="w-4 h-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">
+                        {`${address.slice(0, 6)}...${address.slice(-4)}`}
+                      </span>
+                    </div>
+                    <Button
+                      onClick={() => disconnect()}
+                      variant="outline"
+                      className="text-sm text-gray-600 hover:text-red-500 border-gray-200 hover:border-red-200"
+                    >
+                      Disconnect Wallet
+                    </Button>
+                  </div>
+                )}
               </div>
 
               <h2 className="font-medium text-[#6d6d6d] text-center mb-4 text-xl">

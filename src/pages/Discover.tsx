@@ -8,7 +8,7 @@ import useQuestCheck from "@/hooks/useQuestCheck"; // Make sure path is correct
 import axiosInstance from "@/services/api-client";
 import { AxiosResponse } from "axios";
 
-const Discover = () => {
+const Discover = () => { 
   const queryClient = useQueryClient();
   const [userQuest, setUserQuest] = useState<string | null>(null);
 

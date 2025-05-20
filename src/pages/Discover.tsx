@@ -1,32 +1,43 @@
-import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import Layout from "@/components/layouts/AuthLayout";
 import Header from "@/components/global/Header";
 import Carousel from "@/components/ui/carousel";
 import QuestModal from "@/components/QuestModal"; // Make sure path is correct
 import useQuestCheck from "@/hooks/useQuestCheck"; // Make sure path is correct
+import axiosInstance from "@/services/api-client";
+import { AxiosResponse } from "axios";
 
-const Discover = () => {
+const Discover = () => { 
   const queryClient = useQueryClient();
-  
-  // Use the quest check hook 
-  const { 
-    isQuestModalOpen, 
-    closeQuestModal, 
-    handleQuestSuccess,
-    isLoading 
-  } = useQuestCheck();
+  const [userQuest, setUserQuest] = useState<string | null>(null);
+
+  // Use the quest check hook
+  const { isQuestModalOpen, closeQuestModal, handleQuestSuccess, isLoading } =
+    useQuestCheck();
 
   // Prefetch matches when component mounts
   useEffect(() => {
     // Invalidate user profile to ensure we have the latest data
-    queryClient.invalidateQueries({ queryKey: ['userProfile'] });
-    
+    queryClient.invalidateQueries({ queryKey: ["userProfile"] });
+
+    async function fetchUserInfo() {
+      const response = (await axiosInstance.get(
+        "/users/profile"
+      )) as AxiosResponse;
+      console.log(response.data.data.user.quest);
+
+      setUserQuest(response.data.data.user.quest);
+    }
+
     // Prefetch matches data
-    queryClient.prefetchQuery({ 
-      queryKey: ['matches'],
-      staleTime: 5 * 60 * 1000 // 5 minutes
+    queryClient.prefetchQuery({
+      queryKey: ["matches"],
+      staleTime: 5 * 60 * 1000, // 5 minutes
     });
+
+    fetchUserInfo();
+    // also fetch the user info here to check if the user has completed the quest
   }, [queryClient]);
 
   return (
@@ -48,11 +59,13 @@ const Discover = () => {
       </div>
 
       {/* Quest Modal */}
-      <QuestModal 
-        isOpen={isQuestModalOpen}
-        onClose={closeQuestModal}
-        onSuccess={handleQuestSuccess}
-      />
+      {!userQuest && (
+        <QuestModal
+          isOpen={isQuestModalOpen}
+          onClose={closeQuestModal}
+          onSuccess={handleQuestSuccess}
+        />
+      )}
     </Layout>
   );
 };

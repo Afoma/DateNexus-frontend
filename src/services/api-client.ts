@@ -9,7 +9,7 @@ export const base = new Airtable({
 }).base(import.meta.env.VITE_AIRTABLE_BASE_ID);
 
 const axiosInstance = axios.create({
-  baseURL: `${import.meta.env.VITE_BASE_URL}`,
+  baseURL: `https://datenexus-be.onrender.com/api/v1`,
 });
 
 axiosInstance.interceptors.request.use(

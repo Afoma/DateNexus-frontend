@@ -4,7 +4,7 @@ import { Card, CardContent } from '../components/ui/card';
 import { useNavigate } from 'react-router-dom';
 
 const messages = [
-  { 
+  {  
     id: 1,
     name: 'Jennifer Lopez',
     message: 'What is your issue about this...',
